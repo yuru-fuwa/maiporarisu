@@ -38,19 +38,19 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const <Widget>[
           NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              label: 'ホーム',
-              selectedIcon: Icon(Icons.home_rounded),
-              ),
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home_rounded),
+            label: 'ホーム',
+          ),
           NavigationDestination(
-              icon: Icon(Icons.today_outlined),
-              label: 'スケジュール',
-              selectedIcon: Icon(Icons.today_rounded),
-              ),
+            icon: Icon(Icons.today_outlined),
+            selectedIcon: Icon(Icons.today_rounded),
+            label: 'スケジュール',
+          ),
           NavigationDestination(
             icon: Icon(Icons.settings_outlined),
-            label: '設定',
             selectedIcon: Icon(Icons.settings_rounded),
+            label: '設定',
           ),
         ],
       ),
