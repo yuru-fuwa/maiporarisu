@@ -15,9 +15,16 @@ class MaiporarisuApp extends StatelessWidget {
     return MaterialApp(
       title: 'Maiporarisu',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: MaiporarisuColor.keyColor),
+        colorSchemeSeed: MaiporarisuColor.keyColor,
         useMaterial3: true,
+        brightness: Brightness.light,
       ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: MaiporarisuColor.keyColor,
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.system,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
