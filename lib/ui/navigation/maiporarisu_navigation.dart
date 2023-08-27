@@ -9,7 +9,7 @@ class MaiporarisuNavigation extends StatefulWidget {
 
 class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
   var _currentPageIndex = 0;
-  
+
   final _pages = <Widget>[
     Container(
       alignment: Alignment.center,
