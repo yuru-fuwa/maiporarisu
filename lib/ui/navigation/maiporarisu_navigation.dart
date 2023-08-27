@@ -37,7 +37,7 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
         selectedIndex: _currentPageIndex,
         elevation: 10,
         height: 100,
-	labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const <Widget>[
           NavigationDestination(
               icon: Icon(Icons.home_outlined),
