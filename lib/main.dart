@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:maiporarisu/ui/navigation/maiporarisu_navigation.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
 
@@ -17,6 +18,14 @@ class MaiporarisuApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: MaiporarisuColor.keyColor),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("ja", "JP"),
+      ],
       home: const MaiporarisuNavigation(),
     );
   }
