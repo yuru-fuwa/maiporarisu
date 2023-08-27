@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:maiporarisu/ui/screens/home_screen/home_screen.dart';
+import 'package:maiporarisu/ui/screens/schedule_screen/schedule_screen.dart';
+import 'package:maiporarisu/ui/screens/setting_screen/setting_screen.dart';
 
 class MaiporarisuNavigation extends StatefulWidget {
   const MaiporarisuNavigation({super.key});
@@ -11,18 +14,9 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
   var _currentPageIndex = 0;
 
   final _pages = <Widget>[
-    Container(
-      alignment: Alignment.center,
-      child: const Text('Home'),
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('Schedule'),
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('Setting'),
-    ),
+    const HomeScreen(),
+    const ScheduleScreen(),
+    const SettingScreen(),
   ];
 
   @override
