@@ -1,0 +1,22 @@
+name: 機能追加
+description: 機能追加用のテンプレート
+title: "[Feature]: "
+labels: enhancement
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 機能の説明
+      description: 機能の説明を記入してください
+      placeholder: 機能の説明
+    validations:
+      required: true
+  - type: textarea
+    id: todo
+    attributes:
+      label: Todo
+      description: この機能を実装するためにやることを記入してください
+      placeholder: この機能を実装するためにやること
+      value: "- [ ] "
+    validations:
+      required: true
