@@ -1,0 +1,29 @@
+name: バグ報告
+description: バグ報告用のテンプレート
+title: "[BUG]: "
+labels: bug
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: バグの説明
+      description: バグの説明を記入してください
+      placeholder: バグの説明
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: ログ
+      description: エラーログがあれば、コピーして貼り付けてください
+      placeholder: log
+      render: shell
+  - type: textarea
+    id: todo
+    attributes:
+      label: Todo
+      description: このバグを解決するためにやることを記入してください
+      placeholder: このバグを解決するためにやること
+      value: "- [ ] "
+    validations:
+      required: true
