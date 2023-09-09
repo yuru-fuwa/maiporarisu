@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:maiporarisu/data/controllers/data_controller.dart';
 import 'package:maiporarisu/data/location/location.dart';
+import 'package:maiporarisu/ui/screens/schedule_screen/task_widget.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
@@ -23,18 +26,71 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     });
   }
 
+  _loadData() async {
+    await Get.find<DataController>().getData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(Get.find<DataController>().myData.length);
+    _loadData();
+    List myData = [
+      "Task1",
+      "Task2",
+    ];
+    final leftEditIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: const Color(0xFF2e3253).withOpacity(0.5),
+      child: const Icon(
+        Icons.edit,
+        color: Colors.white,
+      ),
+      alignment: Alignment.centerLeft,
+    );
+    final rightDeleteIcon = Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      color: Colors.redAccent,
+      alignment: Alignment.centerRight,
+      child: const Icon(
+        Icons.delete,
+        color: Colors.white,
+      ),
+    );
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              _locationview,
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          Flexible(
+            child: GetBuilder<DataController>(builder: (controller) {
+              return ListView.builder(
+                itemCount: controller.myData.length,
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    background: leftEditIcon,
+                    secondaryBackground: rightDeleteIcon,
+                    onDismissed: (DismissDirection directtion) {},
+                    confirmDismiss: (DismissDirection direction) async {
+                      if (direction == DismissDirection.endToStart) {
+                        return Future.delayed(const Duration(seconds: 1),
+                            () => direction == DismissDirection.endToStart);
+                      }
+                    },
+                    key: ObjectKey(index),
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 10),
+                      child: TaskWidget(
+                        text: controller.myData[index]["task_name"],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+          ),
+          Text(
+            _locationview,
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: getLocation, child: const Icon(Icons.location_on)),
