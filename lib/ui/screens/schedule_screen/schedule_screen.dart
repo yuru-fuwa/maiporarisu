@@ -32,7 +32,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.find<DataController>().myData.length);
+    debugPrint(Get.find<DataController>().myData.length.toString());
     _loadData();
     List myData = [
       "Task1",
