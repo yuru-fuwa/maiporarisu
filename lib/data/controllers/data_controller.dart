@@ -10,7 +10,7 @@ class DataController extends GetxController {
   List<dynamic> get myData => _myData;
   Future<void> getData() async {
     _isLoading = true;
-    Response response = await service.getData(AppConstants.GET_TASKS);
+    Response response = await service.getData(AppConstants.getTasks);
     if (response.statusCode == 200) {
       _myData = response.body;
       print("we got the data");
@@ -23,7 +23,7 @@ class DataController extends GetxController {
 
   Future<void> postData(String time, String task) async {
     _isLoading = true;
-    Response response = await service.postData(AppConstants.POST_TASK, {
+    Response response = await service.postData(AppConstants.postTask, {
       "task_time": time,
       "task_name": task,
     });

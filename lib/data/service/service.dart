@@ -4,7 +4,7 @@ import 'package:maiporarisu/data/app_constants/app_constants.dart';
 class DataService extends GetConnect implements GetxService {
   Future<Response> getData(String uri) async {
     Response response = await get(
-      AppConstants.BASE_URL + uri,
+      AppConstants.baseUrl + uri,
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
 
@@ -13,7 +13,7 @@ class DataService extends GetConnect implements GetxService {
 
   Future<Response> postData(String uri, dynamic body) async {
     Response response = await post(
-      AppConstants.BASE_URL + uri,
+      AppConstants.baseUrl + uri,
       body,
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
     );
