@@ -11,7 +11,7 @@ class Location {
     permission = await geolocatorPlatform.checkPermission();
     if (permission == LocationPermission.deniedForever ||
         permission == LocationPermission.denied) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) {
           return locationAlert;
@@ -20,6 +20,7 @@ class Location {
       return Future.error('Location permissions are denied');
     }
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 }

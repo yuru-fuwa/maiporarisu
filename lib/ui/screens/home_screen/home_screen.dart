@@ -12,10 +12,10 @@ class HomeScreen extends StatelessWidget {
     TextEditingController taskController = TextEditingController();
     bool dataValidation() {
       if (timeController.text.trim() == '') {
-        Get.snackbar("Task Time", "Task Time is empty");
+        Get.snackbar('Task Time', 'Task Time is empty');
         return false;
       } else if (taskController.text.trim() == '') {
-        Get.snackbar("Task Name", "Task Name is empty");
+        Get.snackbar('Task Name', 'Task Name is empty');
       }
       return true;
     }
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               controller: timeController,
               decoration: const InputDecoration(
                 filled: true,
-                hintText: "Time",
+                hintText: 'Time',
               ),
             ),
             SizedBox(
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
               controller: taskController,
               decoration: const InputDecoration(
                 filled: true,
-                hintText: "Task Name",
+                hintText: 'Task Name',
               ),
             ),
             TextButton(

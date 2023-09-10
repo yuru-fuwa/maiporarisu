@@ -15,14 +15,14 @@ class ScheduleScreen extends StatefulWidget {
 class _ScheduleScreenState extends State<ScheduleScreen> {
   Location location = Location();
 
-  String _locationview = "no data";
+  String _locationview = 'no data';
 
   Future<void> getLocation() async {
     BuildContext context = this.context;
     Position pos = await location.determinePosition(context);
     setState(() {
       _locationview =
-          "TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}";
+          'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
     });
   }
 
@@ -60,33 +60,40 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       body: Column(
         children: [
           Flexible(
-            child: GetBuilder<DataController>(builder: (controller) {
-              return ListView.builder(
-                itemCount: controller.myData.length,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    background: leftEditIcon,
-                    secondaryBackground: rightDeleteIcon,
-                    onDismissed: (DismissDirection directtion) {},
-                    confirmDismiss: (DismissDirection direction) async {
-                      if (direction == DismissDirection.endToStart) {
-                        return Future.delayed(const Duration(seconds: 1),
-                            () => direction == DismissDirection.endToStart);
-                      }
-                      return null;
-                    },
-                    key: ObjectKey(index),
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 10),
-                      child: TaskWidget(
-                        text: controller.myData[index]["task_name"],
+            child: GetBuilder<DataController>(
+              builder: (controller) {
+                return ListView.builder(
+                  itemCount: controller.myData.length,
+                  itemBuilder: (context, index) {
+                    return Dismissible(
+                      background: leftEditIcon,
+                      secondaryBackground: rightDeleteIcon,
+                      onDismissed: (DismissDirection directtion) {},
+                      confirmDismiss: (DismissDirection direction) async {
+                        if (direction == DismissDirection.endToStart) {
+                          return Future.delayed(
+                            const Duration(seconds: 1),
+                            () => direction == DismissDirection.endToStart,
+                          );
+                        }
+                        return null;
+                      },
+                      key: ObjectKey(index),
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 10,
+                        ),
+                        child: TaskWidget(
+                          text: controller.myData[index]['task_name'],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            }),
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Text(
             _locationview,
@@ -94,7 +101,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: getLocation, child: const Icon(Icons.location_on)),
+        onPressed: getLocation,
+        child: const Icon(Icons.location_on),
+      ),
     );
   }
 }

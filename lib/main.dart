@@ -44,7 +44,7 @@ class MaiporarisuApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale("ja", "JP"),
+        Locale('ja', 'JP'),
       ],
       home: const MaiporarisuNavigation(),
     );

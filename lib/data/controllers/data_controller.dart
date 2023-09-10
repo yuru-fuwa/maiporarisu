@@ -14,10 +14,10 @@ class DataController extends GetxController {
     Response response = await service.getData(AppConstants.getTasks);
     if (response.statusCode == 200) {
       _myData = response.body;
-      debugPrint("we got the data");
+      debugPrint('we got the data');
       update();
     } else {
-      debugPrint("we did not get any data");
+      debugPrint('we did not get any data');
     }
     _isLoading = false;
   }
@@ -25,14 +25,14 @@ class DataController extends GetxController {
   Future<void> postData(String time, String task) async {
     _isLoading = true;
     Response response = await service.postData(AppConstants.postTask, {
-      "task_time": time,
-      "task_name": task,
+      'task_time': time,
+      'task_name': task,
     });
     if (response.statusCode == 200) {
       update();
       debugPrint('data post successful');
     } else {
-      debugPrint("data post failed");
+      debugPrint('data post failed');
     }
     _isLoading = false;
   }
