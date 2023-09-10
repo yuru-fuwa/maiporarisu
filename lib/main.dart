@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/controllers/data_controller.dart';
 import 'package:maiporarisu/ui/navigation/maiporarisu_navigation.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
+  AppConstants().init();
   runApp(const MaiporarisuApp());
 }
 
