@@ -11,12 +11,12 @@ class LocationAlert extends StatelessWidget {
       content: const Text('位置情報を利用します'),
       actions: <Widget>[
         OutlinedButton(
-          child: const Text("キャンセル"),
+          child: const Text('キャンセル'),
           onPressed: () => Navigator.pop(context),
         ),
         OutlinedButton(
-          child: const Text("設定"),
-          onPressed: () async {
+          child: const Text('設定'),
+          onPressed: () {
             openAppSettings();
             Navigator.pop(context);
           },
