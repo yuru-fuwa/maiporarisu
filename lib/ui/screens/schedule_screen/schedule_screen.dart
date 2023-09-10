@@ -32,20 +32,20 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.find<DataController>().myData.length);
+    debugPrint(Get.find<DataController>().myData.length.toString());
     _loadData();
-    List myData = [
-      "Task1",
-      "Task2",
-    ];
+    // List myData = [
+    //   "Task1",
+    //   "Task2",
+    // ];
     final leftEditIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
       color: const Color(0xFF2e3253).withOpacity(0.5),
+      alignment: Alignment.centerLeft,
       child: const Icon(
         Icons.edit,
         color: Colors.white,
       ),
-      alignment: Alignment.centerLeft,
     );
     final rightDeleteIcon = Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -73,6 +73,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         return Future.delayed(const Duration(seconds: 1),
                             () => direction == DismissDirection.endToStart);
                       }
+                      return null;
                     },
                     key: ObjectKey(index),
                     child: Container(

@@ -22,6 +22,7 @@ class MaiporarisuApp extends StatelessWidget {
     loadData();
     return GetMaterialApp(
       title: 'Maiporarisu',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorSchemeSeed: MaiporarisuColor.keyColor,
         useMaterial3: true,

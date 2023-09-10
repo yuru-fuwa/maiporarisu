@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/service/service.dart';
@@ -10,28 +11,28 @@ class DataController extends GetxController {
   List<dynamic> get myData => _myData;
   Future<void> getData() async {
     _isLoading = true;
-    Response response = await service.getData(AppConstants.GET_TASKS);
+    Response response = await service.getData(AppConstants.getTasks);
     if (response.statusCode == 200) {
       _myData = response.body;
-      print("we got the data");
+      debugPrint("we got the data");
       update();
     } else {
-      print("we did not get any data");
+      debugPrint("we did not get any data");
     }
     _isLoading = false;
   }
 
   Future<void> postData(String time, String task) async {
     _isLoading = true;
-    Response response = await service.postData(AppConstants.POST_TASK, {
+    Response response = await service.postData(AppConstants.postTask, {
       "task_time": time,
       "task_name": task,
     });
     if (response.statusCode == 200) {
       update();
-      print('data post successful');
+      debugPrint('data post successful');
     } else {
-      print("data post failed");
+      debugPrint("data post failed");
     }
     _isLoading = false;
   }

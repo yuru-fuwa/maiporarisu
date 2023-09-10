@@ -1,6 +1,6 @@
 class AppConstants {
-  static const String BASE_URL = "https://wa-maiporarisu.azurewebsites.net";
-  static const String GET_TASKS = "/gettasks";
-  static const String POST_TASK = "/create";
-  static const String GET_TASK = "/gettask";
+  static const String baseUrl = "https://wa-maiporarisu.azurewebsites.net";
+  static const String getTasks = "/gettasks";
+  static const String postTask = "/create";
+  static const String getTask = "/gettask";
 }
