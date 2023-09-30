@@ -99,12 +99,16 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           Text(
             _locationview,
           ),
-          const GoogleMap(
+          const SizedBox(
+            height: 300,
+            child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(24.2867, 153.9807),  // デフォルト: 東京駅
+                target: LatLng(24.2867, 153.9807),
                 zoom: 11.0,
               ),
-          ),
+              // その他のGoogleMapの設定
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
