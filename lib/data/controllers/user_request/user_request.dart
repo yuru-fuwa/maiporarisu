@@ -5,8 +5,8 @@ import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
 class UserRequest {
-  Uri getTasksUrl = Uri.parse(AppConstants().getTasksUrl);
-  Uri postTaskUrl = Uri.parse(AppConstants().postTaskUrl);
+  Uri getTasksUrl = Uri.parse(AppConstants.getTasksUrl);
+  Uri postTaskUrl = Uri.parse(AppConstants.postTaskUrl);
 
   Future<List<Task>> getAllTasks() async {
     http.Response response = await http.get(
