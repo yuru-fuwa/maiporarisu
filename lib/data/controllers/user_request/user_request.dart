@@ -5,12 +5,12 @@ import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
 class UserRequest {
-  Uri getUrl = Uri.parse(AppConstants().getTaskUrl);
-  Uri postUrl = Uri.parse(AppConstants().postTaskUrl);
+  Uri getTasksUrl = Uri.parse(AppConstants().getTasksUrl);
+  Uri postTaskUrl = Uri.parse(AppConstants().postTaskUrl);
 
   Future<List<Task>> getAllTasks() async {
     http.Response response = await http.get(
-      getUrl,
+      getTasksUrl,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -31,7 +31,7 @@ class UserRequest {
 
   Future<void> postTask(String time, String task) async {
     http.Response response = await http.post(
-      postUrl,
+      postTaskUrl,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -42,7 +42,7 @@ class UserRequest {
         },
       ),
     );
-    debugPrint(postUrl.toString());
+    debugPrint(postTaskUrl.toString());
     if (response.statusCode == 200) {
       debugPrint('data post successful');
     } else {
