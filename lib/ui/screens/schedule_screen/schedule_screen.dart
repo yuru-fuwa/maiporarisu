@@ -30,47 +30,49 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     final userRequest = UserRequest();
     List<Task> taskList = <Task>[];
     return Scaffold(
-      body: Column(
-        children: [
-          FutureBuilder<List<Task>>(
-            future: userRequest.getAllTasks(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
-              taskList = snapshot.data ?? <Task>[];
-              return ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: taskList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    shadowColor: Colors.black,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            const Text('Time'),
-                            Text(taskList[index].time),
-                            const Text('Name:'),
-                            Text(taskList[index].name),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          Text(
-            _locationview,
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder<List<Task>>(
+              future: userRequest.getAllTasks(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+                taskList = snapshot.data ?? <Task>[];
+                return ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: taskList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      shadowColor: Colors.black,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              const Text('Time'),
+                              Text(taskList[index].time),
+                              const Text('Name:'),
+                              Text(taskList[index].name),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+            Text(
+              _locationview,
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getLocation,
