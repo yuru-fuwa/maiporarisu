@@ -20,9 +20,6 @@ class HomeScreen extends StatelessWidget {
       } else if (taskController.text.trim() == '') {
         Get.snackbar('Task Name', 'Task Name is empty');
         return false;
-      } else if (taskController.text.trim().length > 20) {
-        Get.snackbar('Task Name', '20文字以内で設定してください');
-        return false;
       }
       return true;
     }
