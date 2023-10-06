@@ -15,8 +15,15 @@ class HomeScreen extends StatelessWidget {
       if (timeController.text.trim() == '') {
         Get.snackbar('Task Time', 'Task Time is empty');
         return false;
+      } else if (timeController.text.trim().length > 6) {
+        Get.snackbar('Task Time', '6文字以内で設定してください');
+        return false;
       } else if (taskController.text.trim() == '') {
         Get.snackbar('Task Name', 'Task Name is empty');
+        return false;
+      } else if (taskController.text.trim().length > 20) {
+        Get.snackbar('Task Name', '20文字以内で設定してください');
+        return false;
       }
       return true;
     }
