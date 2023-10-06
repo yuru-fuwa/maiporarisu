@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
-import 'package:maiporarisu/ui/screens/schedule_screen/schedule_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
