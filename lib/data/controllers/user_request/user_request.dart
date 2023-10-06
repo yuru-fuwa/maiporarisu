@@ -29,7 +29,7 @@ class UserRequest {
     return tasks;
   }
 
-  Future<void> postTask(String time, String task) async {
+  Future<void> postTask(String time, String name) async {
     http.Response response = await http.post(
       postTaskUrl,
       headers: {
@@ -37,8 +37,8 @@ class UserRequest {
       },
       body: jsonEncode(
         {
-          'task_time': time,
-          'task_name': task,
+          'time': time,
+          'name': name,
         },
       ),
     );

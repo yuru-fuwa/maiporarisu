@@ -20,10 +20,10 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Task {
-  String get taskId => throw _privateConstructorUsedError;
-  String get taskTime => throw _privateConstructorUsedError;
-  String get taskName => throw _privateConstructorUsedError;
-  bool get taskCheck => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get time => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  bool get check => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
-  $Res call({String taskId, String taskTime, String taskName, bool taskCheck});
+  $Res call({String id, String time, String name, bool check});
 }
 
 /// @nodoc
@@ -51,27 +51,27 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? taskId = null,
-    Object? taskTime = null,
-    Object? taskName = null,
-    Object? taskCheck = null,
+    Object? id = null,
+    Object? time = null,
+    Object? name = null,
+    Object? check = null,
   }) {
     return _then(_value.copyWith(
-      taskId: null == taskId
-          ? _value.taskId
-          : taskId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      taskTime: null == taskTime
-          ? _value.taskTime
-          : taskTime // ignore: cast_nullable_to_non_nullable
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
               as String,
-      taskName: null == taskName
-          ? _value.taskName
-          : taskName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      taskCheck: null == taskCheck
-          ? _value.taskCheck
-          : taskCheck // ignore: cast_nullable_to_non_nullable
+      check: null == check
+          ? _value.check
+          : check // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -84,7 +84,7 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       __$$TaskImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String taskId, String taskTime, String taskName, bool taskCheck});
+  $Res call({String id, String time, String name, bool check});
 }
 
 /// @nodoc
@@ -97,27 +97,27 @@ class __$$TaskImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? taskId = null,
-    Object? taskTime = null,
-    Object? taskName = null,
-    Object? taskCheck = null,
+    Object? id = null,
+    Object? time = null,
+    Object? name = null,
+    Object? check = null,
   }) {
     return _then(_$TaskImpl(
-      taskId: null == taskId
-          ? _value.taskId
-          : taskId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      taskTime: null == taskTime
-          ? _value.taskTime
-          : taskTime // ignore: cast_nullable_to_non_nullable
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
               as String,
-      taskName: null == taskName
-          ? _value.taskName
-          : taskName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      taskCheck: null == taskCheck
-          ? _value.taskCheck
-          : taskCheck // ignore: cast_nullable_to_non_nullable
+      check: null == check
+          ? _value.check
+          : check // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -127,26 +127,26 @@ class __$$TaskImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
   const _$TaskImpl(
-      {required this.taskId,
-      required this.taskTime,
-      required this.taskName,
-      required this.taskCheck});
+      {required this.id,
+      required this.time,
+      required this.name,
+      required this.check});
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskImplFromJson(json);
 
   @override
-  final String taskId;
+  final String id;
   @override
-  final String taskTime;
+  final String time;
   @override
-  final String taskName;
+  final String name;
   @override
-  final bool taskCheck;
+  final bool check;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Task(taskId: $taskId, taskTime: $taskTime, taskName: $taskName, taskCheck: $taskCheck)';
+    return 'Task(id: $id, time: $time, name: $name, check: $check)';
   }
 
   @override
@@ -154,10 +154,10 @@ class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Task'))
-      ..add(DiagnosticsProperty('taskId', taskId))
-      ..add(DiagnosticsProperty('taskTime', taskTime))
-      ..add(DiagnosticsProperty('taskName', taskName))
-      ..add(DiagnosticsProperty('taskCheck', taskCheck));
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('time', time))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('check', check));
   }
 
   @override
@@ -165,19 +165,15 @@ class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TaskImpl &&
-            (identical(other.taskId, taskId) || other.taskId == taskId) &&
-            (identical(other.taskTime, taskTime) ||
-                other.taskTime == taskTime) &&
-            (identical(other.taskName, taskName) ||
-                other.taskName == taskName) &&
-            (identical(other.taskCheck, taskCheck) ||
-                other.taskCheck == taskCheck));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.check, check) || other.check == check));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, taskId, taskTime, taskName, taskCheck);
+  int get hashCode => Object.hash(runtimeType, id, time, name, check);
 
   @JsonKey(ignore: true)
   @override
@@ -195,21 +191,21 @@ class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
 
 abstract class _Task implements Task {
   const factory _Task(
-      {required final String taskId,
-      required final String taskTime,
-      required final String taskName,
-      required final bool taskCheck}) = _$TaskImpl;
+      {required final String id,
+      required final String time,
+      required final String name,
+      required final bool check}) = _$TaskImpl;
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
 
   @override
-  String get taskId;
+  String get id;
   @override
-  String get taskTime;
+  String get time;
   @override
-  String get taskName;
+  String get name;
   @override
-  bool get taskCheck;
+  bool get check;
   @override
   @JsonKey(ignore: true)
   _$$TaskImplCopyWith<_$TaskImpl> get copyWith =>

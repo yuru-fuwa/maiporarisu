@@ -52,9 +52,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         Row(
                           children: [
                             const Text('Time'),
-                            Text(taskList[index].taskTime),
+                            Text(taskList[index].time),
                             const Text('Name:'),
-                            Text(taskList[index].taskName),
+                            Text(taskList[index].name),
                           ],
                         ),
                         const SizedBox(
