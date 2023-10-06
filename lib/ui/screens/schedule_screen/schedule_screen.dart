@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:maiporarisu/data/controllers/data_controller.dart';
+import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
-import 'package:maiporarisu/ui/screens/schedule_screen/task_widget.dart';
+import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
@@ -26,74 +25,47 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     });
   }
 
-  _loadData() async {
-    await Get.find<DataController>().getData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    debugPrint(Get.find<DataController>().myData.length.toString());
-    _loadData();
-    // List myData = [
-    //   "Task1",
-    //   "Task2",
-    // ];
-    final leftEditIcon = Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      color: const Color(0xFF2e3253).withOpacity(0.5),
-      alignment: Alignment.centerLeft,
-      child: const Icon(
-        Icons.edit,
-        color: Colors.white,
-      ),
-    );
-    final rightDeleteIcon = Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      color: Colors.redAccent,
-      alignment: Alignment.centerRight,
-      child: const Icon(
-        Icons.delete,
-        color: Colors.white,
-      ),
-    );
+    final userRequest = UserRequest();
+    List<Task> taskList = <Task>[];
     return Scaffold(
       body: Column(
         children: [
-          Flexible(
-            child: GetBuilder<DataController>(
-              builder: (controller) {
-                return ListView.builder(
-                  itemCount: controller.myData.length,
-                  itemBuilder: (context, index) {
-                    return Dismissible(
-                      background: leftEditIcon,
-                      secondaryBackground: rightDeleteIcon,
-                      onDismissed: (DismissDirection directtion) {},
-                      confirmDismiss: (DismissDirection direction) async {
-                        if (direction == DismissDirection.endToStart) {
-                          return Future.delayed(
-                            const Duration(seconds: 1),
-                            () => direction == DismissDirection.endToStart,
-                          );
-                        }
-                        return null;
-                      },
-                      key: ObjectKey(index),
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          bottom: 10,
+          FutureBuilder<List<Task>>(
+            future: userRequest.getAllTasks(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+              taskList = snapshot.data ?? <Task>[];
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: taskList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    shadowColor: Colors.black,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
                         ),
-                        child: TaskWidget(
-                          text: controller.myData[index]['task_name'],
+                        Row(
+                          children: [
+                            const Text('Time'),
+                            Text(taskList[index].taskTime),
+                            const Text('Name:'),
+                            Text(taskList[index].taskName),
+                          ],
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
           ),
           Text(
             _locationview,

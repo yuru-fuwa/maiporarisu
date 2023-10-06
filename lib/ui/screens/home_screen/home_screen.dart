@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maiporarisu/data/controllers/data_controller.dart';
-import 'package:maiporarisu/ui/navigation/maiporarisu_navigation.dart';
+import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
+import 'package:maiporarisu/ui/screens/schedule_screen/schedule_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userRequest = UserRequest();
     TextEditingController timeController = TextEditingController();
     TextEditingController taskController = TextEditingController();
     bool dataValidation() {
@@ -52,11 +53,10 @@ class HomeScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 if (dataValidation()) {
-                  Get.find<DataController>().postData(
+                  userRequest.postTask(
                     timeController.text.trim(),
                     taskController.text.trim(),
                   );
-                  Get.to(() => const MaiporarisuNavigation());
                 }
               },
               child: const Text('add'),
