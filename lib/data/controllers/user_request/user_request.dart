@@ -5,10 +5,20 @@ import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
 class UserRequest {
+  UserRequest({
+    this.isMock = false,
+  });
+
+  final bool isMock;
+
   final Uri _getTasksUrl = Uri.parse(AppConstants.getTasksUrl);
   final Uri _postTaskUrl = Uri.parse(AppConstants.postTaskUrl);
 
   Future<List<Task>> getAllTasks() async {
+    if (isMock) {
+      return <Task>[Task.mockTask];
+    }
+
     http.Response response = await http.get(
       _getTasksUrl,
       headers: {
