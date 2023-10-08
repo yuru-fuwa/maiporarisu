@@ -3,5 +3,5 @@
       id: run-python-script
         name: Run Python Script
         entry: python3
-        args: ["script/script.py"]
+        args: ["script/preCommitScript.py"]
         language: system
