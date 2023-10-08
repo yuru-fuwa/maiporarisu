@@ -1,0 +1,7 @@
+ repo: local
+    hooks:
+      id: run-python-script
+        name: Run Python Script
+        entry: python3
+        args: ["script/script.py"]
+        language: system
