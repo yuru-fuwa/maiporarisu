@@ -103,8 +103,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             height: 300,
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: LatLng(24.2867, 153.9807),
-                zoom: 11.0,
+                target: LatLng(35.681236,139.767125), // デフォルト: 東京駅
+                zoom: 16.0,
               ),
               // その他のGoogleMapの設定
             ),
