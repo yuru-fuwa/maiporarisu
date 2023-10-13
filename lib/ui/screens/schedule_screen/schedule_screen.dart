@@ -27,7 +27,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userRequest = UserRequest();
+    final userRequest = UserRequest(isMock: true);
     List<Task> taskList = <Task>[];
     return Scaffold(
       body: SingleChildScrollView(
