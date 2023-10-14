@@ -27,7 +27,7 @@ class Task with _$Task {
           id: '1',
           time: '2023-09-01 12:00:00',
           name: '市役所',
-          check: false,
+          check: true,
         ),
         const Task(
           id: '2',
