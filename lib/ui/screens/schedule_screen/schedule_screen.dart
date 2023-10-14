@@ -49,7 +49,27 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 );
               },
             ),
-            Text(_locationview),
+            const SizedBox(height: 16),
+            Container(
+              alignment: Alignment.center,
+              height: 200,
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: _locationview == 'no data'
+                  ? Icon(
+                      Icons.location_off,
+                      size: 80,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.25),
+                    )
+                  : Text(_locationview),
+            ),
           ],
         ),
       ),
