@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:maiporarisu/data/controllers/data_controller.dart';
-import 'package:maiporarisu/ui/navigation/maiporarisu_navigation.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
+import 'package:maiporarisu/ui/screens/home_screen/hook/use_home_screen_state.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController timeController = TextEditingController();
+    final userRequest = UserRequest();
     TextEditingController taskController = TextEditingController();
-    bool dataValidation() {
-      if (timeController.text.trim() == '') {
-        Get.snackbar('Task Time', 'Task Time is empty');
+    bool taskValidation() {
+      if (taskController.text.trim().isEmpty) {
         return false;
-      } else if (taskController.text.trim() == '') {
-        Get.snackbar('Task Name', 'Task Name is empty');
       }
       return true;
     }
+
+    HomeScreenState state = useHomeScreenState(
+      dateTime: DateTime.now(),
+      timeOfDay: TimeOfDay.now(),
+    );
 
     return Scaffold(
       body: Container(
@@ -30,12 +32,36 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 8,
             ),
-            TextField(
-              maxLines: 1,
-              controller: timeController,
-              decoration: const InputDecoration(
-                filled: true,
-                hintText: 'Time',
+            ElevatedButton(
+              onPressed: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: state.dateTime,
+                  firstDate: DateTime(DateTime.now().year),
+                  lastDate: DateTime(DateTime.now().year + 1),
+                ).then((newDateTime) {
+                  if (newDateTime != null) {
+                    state.handleDateTimeState(newDateTime);
+                  }
+                });
+              },
+              child: Text(
+                '${state.dateTime.year.toString()}.${state.dateTime.month.toString()}.${state.dateTime.day.toString()}',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showTimePicker(
+                  context: context,
+                  initialTime: state.timeOfDay,
+                ).then((newTimeOfDay) {
+                  if (newTimeOfDay != null) {
+                    state.handleTimeOfDayState(newTimeOfDay);
+                  }
+                });
+              },
+              child: Text(
+                '${state.timeOfDay.hour.toString()}:${state.timeOfDay.minute.toString()}',
               ),
             ),
             SizedBox(
@@ -51,12 +77,11 @@ class HomeScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                if (dataValidation()) {
-                  Get.find<DataController>().postData(
-                    timeController.text.trim(),
+                if (taskValidation()) {
+                  userRequest.postTask(
+                    '${state.dateTime.year}.${state.dateTime.month}.${state.dateTime.day} ${state.timeOfDay.hour}:${state.timeOfDay.minute}',
                     taskController.text.trim(),
                   );
-                  Get.to(() => const MaiporarisuNavigation());
                 }
               },
               child: const Text('add'),
