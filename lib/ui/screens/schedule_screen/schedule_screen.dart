@@ -15,8 +15,8 @@ class ScheduleScreen extends StatefulWidget {
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   Location location = Location();
-
   String _locationview = 'no data';
+  final LatLng _center = const LatLng(35.681236,139.767125);
 
   Future<void> getLocation() async {
     BuildContext context = this.context;
