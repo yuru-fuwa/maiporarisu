@@ -16,7 +16,7 @@ class UserRequest {
 
   Future<List<Task>> getAllTasks() async {
     if (isMock) {
-      return <Task>[Task.mockTask];
+      return Task.mockTasks;
     }
 
     http.Response response = await http.get(
