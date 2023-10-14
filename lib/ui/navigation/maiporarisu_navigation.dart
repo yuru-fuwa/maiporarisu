@@ -22,6 +22,10 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('まいぽらりす'),
+        centerTitle: true,
+      ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
