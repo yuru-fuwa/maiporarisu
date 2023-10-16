@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
@@ -76,6 +77,19 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             Text(
               _locationview,
+            ),
+            const SizedBox(
+              height: 300,
+              child: Padding(
+                padding: EdgeInsets.all(30),
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(35.681236,139.767125), // デフォルト: 東京駅
+                    zoom: 16.0,
+                  ),
+                  // その他のGoogleMapの設定
+                ),
+              ),
             ),
           ],
         ),
