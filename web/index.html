@@ -38,7 +38,7 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
-<!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi54IAdjHLMSkUfBvAphfALnSMOW3lc4U"></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi54IAdjHLMSkUfBvAphfALnSMOW3lc4U"></script>
 </head>
 <body>
   <script>
@@ -46,7 +46,7 @@
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
-          wqserviceWorkerVersion: serviceWorkerVersion,
+          serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
