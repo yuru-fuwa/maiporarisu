@@ -46,7 +46,7 @@ class HomeScreen extends HookWidget {
                 });
               },
               child: Text(
-                '${state.dateTime.year.toString()}.${state.dateTime.month.toString()}.${state.dateTime.day.toString()}',
+                '${state.dateTime.year.toString()}.${state.dateTime.month.toString().padLeft(2, '0')}.${state.dateTime.day.toString().padLeft(2, '0')}',
               ),
             ),
             ElevatedButton(
@@ -61,7 +61,7 @@ class HomeScreen extends HookWidget {
                 });
               },
               child: Text(
-                '${state.timeOfDay.hour.toString()}:${state.timeOfDay.minute.toString()}',
+                '${state.timeOfDay.hour.toString().padLeft(2, '0')}:${state.timeOfDay.minute.toString().padLeft(2, '0')}',
               ),
             ),
             SizedBox(
