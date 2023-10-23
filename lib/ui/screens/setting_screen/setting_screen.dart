@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:maiporarisu/ui/styles/color.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -43,27 +42,21 @@ class SettingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.green[50], // 可愛い色に変更
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: const EdgeInsets.all(8),
+    return Card(
+      shadowColor: Colors.black,
       child: ListTile(
-        leading: const Icon(Icons.add_alert, color: MaiporarisuColor.keyColor),
+        leading: const Icon(Icons.add_alert),
         title: Text(
           title,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: MaiporarisuColor.keyColor,
           ),
         ),
         subtitle: Text(
           subtitle,
           style: const TextStyle(
             fontSize: 16,
-            color: MaiporarisuColor.keyColor,
           ),
         ),
       ),
