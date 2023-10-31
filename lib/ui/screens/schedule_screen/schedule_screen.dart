@@ -7,23 +7,34 @@ import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
-
   @override
   State<ScheduleScreen> createState() => _ScheduleScreenState();
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
+  late GoogleMapController mapController;
   Location location = Location();
 
-  String _locationview = 'no data';
+  String _locationView = 'no data';
+  LatLng _currentPosition = const LatLng(35.681236, 139.767125);
 
   Future<void> getLocation() async {
     BuildContext context = this.context;
     Position pos = await location.determinePosition(context);
     setState(() {
-      _locationview =
-          'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
+      _locationView =
+          'Timestamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
+      _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
+
+    await mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: _currentPosition,
+          zoom: 16.0,
+        ),
+      ),
+    );
   }
 
   @override
@@ -38,56 +49,71 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               future: userRequest.getAllTasks(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
-                taskList = snapshot.data ?? <Task>[];
-                return ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: taskList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shadowColor: Colors.black,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              const Text('Time'),
-                              Text(taskList[index].time),
-                              const Text('Name:'),
-                              Expanded(
-                                child: Text(
-                                  taskList[index].name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                if (snapshot.hasData) {
+                  taskList = snapshot.data!;
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: taskList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        shadowColor: Colors.black,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                const Text('Time:'),
+                                Text(taskList[index].time),
+                                const Text('Name:'),
+                                Expanded(
+                                  child: Text(
+                                    taskList[index].name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return const CircularProgressIndicator(); // or some other loading indicator
+                }
               },
             ),
             Text(
-              _locationview,
+              _locationView,
             ),
-            const SizedBox(
+            SizedBox(
               height: 300,
               child: Padding(
-                padding: EdgeInsets.all(30),
+                padding: const EdgeInsets.all(30),
                 child: GoogleMap(
+                  onMapCreated: (controller) {
+                    mapController = controller;
+                  },
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(35.681236,139.767125), // デフォルト: 東京駅
+                    target: _currentPosition,
                     zoom: 16.0,
                   ),
-                  // その他のGoogleMapの設定
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('currentLocation'),
+                      position: _currentPosition,
+                      infoWindow: const InfoWindow(title: '現在の場所'),
+                    ),
+                  },
                 ),
               ),
             ),
