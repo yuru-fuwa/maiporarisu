@@ -15,15 +15,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   late GoogleMapController mapController;
   Location location = Location();
 
-  String _locationView = 'no data';
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
 
   Future<void> getLocation() async {
     BuildContext context = this.context;
     Position pos = await location.determinePosition(context);
     setState(() {
-      _locationView =
-          'Timestamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
 
@@ -91,9 +88,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   return const CircularProgressIndicator(); // or some other loading indicator
                 }
               },
-            ),
-            Text(
-              _locationView,
             ),
             SizedBox(
               height: 300,
