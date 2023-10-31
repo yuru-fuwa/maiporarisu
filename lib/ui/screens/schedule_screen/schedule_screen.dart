@@ -13,13 +13,17 @@ class ScheduleScreen extends StatefulWidget {
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   late GoogleMapController mapController;
-  Location location = Location();
-
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
 
-  Future<void> getLocation() async {
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  getLocation() async {
     BuildContext context = this.context;
-    Position pos = await location.determinePosition(context);
+    Position pos = await Location().determinePosition(context);
     setState(() {
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
@@ -105,7 +109,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     Marker(
                       markerId: const MarkerId('currentLocation'),
                       position: _currentPosition,
-                      infoWindow: const InfoWindow(title: '現在の場所'),
+                      infoWindow: const InfoWindow(title: '現在地'),
                     ),
                   },
                 ),
@@ -116,7 +120,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getLocation,
-        child: const Icon(Icons.location_on),
+        child: const Icon(Icons.my_location),
       ),
     );
   }
