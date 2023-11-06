@@ -21,6 +21,17 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+      ),
+    );
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('まいぽらりす'),
