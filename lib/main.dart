@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
 import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/schedule_map_screen.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
@@ -29,7 +28,7 @@ class MaiporarisuApp extends StatelessWidget {
       overlays: [SystemUiOverlay.top],
     );
 
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Maiporarisu',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
