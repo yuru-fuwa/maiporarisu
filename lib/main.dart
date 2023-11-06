@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:maiporarisu/data/app_constants/app_constants.dart';
-import 'package:maiporarisu/ui/navigation/maiporarisu_navigation.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/schedule_map_screen.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
 
 Future<void> main() async {
@@ -17,6 +18,17 @@ class MaiporarisuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+      ),
+    );
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top],
+    );
+
     return GetMaterialApp(
       title: 'Maiporarisu',
       debugShowCheckedModeBanner: false,
@@ -39,7 +51,7 @@ class MaiporarisuApp extends StatelessWidget {
       supportedLocales: const [
         Locale('ja', 'JP'),
       ],
-      home: const MaiporarisuNavigation(),
+      home: const ScheduleMapScreen(),
     );
   }
 }
