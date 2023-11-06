@@ -6,14 +6,14 @@ import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
 
-class ScheduleScreen extends StatefulHookWidget {
-  const ScheduleScreen({super.key});
+class ScheduleMapScreen extends StatefulHookWidget {
+  const ScheduleMapScreen({super.key});
 
   @override
-  State<ScheduleScreen> createState() => _ScheduleScreenState();
+  State<ScheduleMapScreen> createState() => _ScheduleMapScreenState();
 }
 
-class _ScheduleScreenState extends State<ScheduleScreen> {
+class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
   Location location = Location();
 
   String _locationview = 'no data';
@@ -77,7 +77,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 padding: EdgeInsets.all(30),
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(35.681236,139.767125), // デフォルト: 東京駅
+                    target: LatLng(35.681236, 139.767125), // デフォルト: 東京駅
                     zoom: 16.0,
                   ),
                   // その他のGoogleMapの設定

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maiporarisu/ui/screens/home_screen/home_screen.dart';
-import 'package:maiporarisu/ui/screens/schedule_screen/schedule_screen.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/schedule_map_screen.dart';
 import 'package:maiporarisu/ui/screens/setting_screen/setting_screen.dart';
 
 class MaiporarisuNavigation extends StatefulWidget {
@@ -15,7 +15,7 @@ class _MaiporarisuNavigationState extends State<MaiporarisuNavigation> {
 
   final _pages = <Widget>[
     const HomeScreen(),
-    const ScheduleScreen(),
+    const ScheduleMapScreen(),
     const SettingScreen(),
   ];
 
