@@ -6,6 +6,7 @@ import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_drawer.dart';
 
 class ScheduleMapScreen extends StatefulHookWidget {
   const ScheduleMapScreen({super.key});
@@ -42,6 +43,8 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
         centerTitle: true,
         title: const Text('まいぽらりす'),
       ),
+      drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
+      drawer: const MaiporarisuDrawer(),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
