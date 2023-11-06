@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/model/task_model/task_model.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
 
 class ScheduleMapScreen extends StatefulHookWidget {
   const ScheduleMapScreen({super.key});
@@ -45,7 +46,7 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
                   itemCount: taskList.length,
                   itemBuilder: (BuildContext context, int index) {
                     final task = taskList[index];
-                    return TaskCard(task: task);
+                    return TaskItem(task: task);
                   },
                 );
               },
@@ -90,61 +91,6 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: getLocation,
         child: const Icon(Icons.location_on),
-      ),
-    );
-  }
-}
-
-class TaskCard extends HookWidget {
-  final Task task;
-
-  const TaskCard({
-    super.key,
-    required this.task,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final done = useState(task.check);
-    return Card(
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () {
-          done.value = !done.value;
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              Icon(
-                done.value
-                    ? Icons.check_box_outlined
-                    : Icons.check_box_outline_blank_outlined,
-                color:
-                    done.value ? Theme.of(context).colorScheme.primary : null,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(task.time),
-                      ],
-                    ),
-                    Text(
-                      task.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
