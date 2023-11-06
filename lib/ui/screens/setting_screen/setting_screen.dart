@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +44,11 @@ class SettingListItem extends StatelessWidget {
   final IconData icon;
 
   const SettingListItem({
-    Key? key,
+    super.key,
     required this.title,
     required this.text,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

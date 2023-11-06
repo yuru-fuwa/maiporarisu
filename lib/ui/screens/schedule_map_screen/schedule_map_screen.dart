@@ -57,8 +57,7 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
           ),
           FutureBuilder<List<Task>>(
             future: userRequest.getAllTasks(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+            builder: (context, snapshot) {
               final taskList = snapshot.data ?? <Task>[];
               return ListView.builder(
                 padding: EdgeInsets.only(
@@ -66,7 +65,7 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
                   bottom: MediaQuery.of(context).padding.bottom,
                 ),
                 itemCount: taskList.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   final task = taskList[index];
                   return TaskItem(task: task);
                 },

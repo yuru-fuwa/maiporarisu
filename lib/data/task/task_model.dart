@@ -15,14 +15,14 @@ class Task with _$Task {
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
-  static get mockTask => const Task(
+  static Task get mockTask => const Task(
         id: '1',
         time: '2023-09-01 12:00:00',
         name: 'test',
         check: false,
       );
 
-  static get mockTasks => [
+  static List<Task> get mockTasks => [
         const Task(
           id: '1',
           time: '2023-09-01 12:00:00',
