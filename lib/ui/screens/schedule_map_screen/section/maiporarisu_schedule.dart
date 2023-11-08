@@ -141,7 +141,12 @@ class MaiporarisuSchedule extends ConsumerWidget {
             child: ListView.builder(
               controller: controller,
               physics: const MaiporarisuScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              padding: EdgeInsets.fromLTRB(
+                0,
+                8,
+                0,
+                20 + MediaQuery.of(context).viewPadding.bottom,
+              ),
               itemCount: tasks.length,
               itemBuilder: (context, i) {
                 return Material(
