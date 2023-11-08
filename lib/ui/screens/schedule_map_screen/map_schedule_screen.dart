@@ -11,16 +11,14 @@ import 'package:maiporarisu/ui/styles/size.dart';
 class MapScheduleScreen extends StatelessWidget {
   const MapScheduleScreen({super.key});
 
-  Location location = Location();
-
-  Future<String> getLocation() async {
-    BuildContext context = this.context;
+  Future<String> getLocation(BuildContext context, Location location) async {
     Position pos = await location.determinePosition(context);
     return 'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
   }
 
   @override
   Widget build(BuildContext context) {
+    final location = Location();
     final userRequest = UserRequest(isMock: true);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
@@ -105,7 +103,9 @@ class MapScheduleScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: getLocation,
+        onPressed: () {
+          getLocation(context, location);
+        },
         child: const Icon(Icons.location_on),
       ),
     );
