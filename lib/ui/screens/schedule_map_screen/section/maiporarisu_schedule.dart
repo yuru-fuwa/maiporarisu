@@ -149,10 +149,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
               ),
               itemCount: tasks.length,
               itemBuilder: (context, i) {
-                return Material(
-                  color: Colors.transparent,
-                  child: TaskItem(task: tasks[i]),
-                );
+                return TaskItem(task: tasks[i]);
               },
             ),
           ),
