@@ -49,7 +49,6 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
         centerTitle: true,
         title: const Text('まいぽらりす'),
       ),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
       drawer: const MaiporarisuDrawer(),
       body: Stack(
         alignment: Alignment.topCenter,
