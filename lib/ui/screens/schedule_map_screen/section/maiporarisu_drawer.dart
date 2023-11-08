@@ -12,6 +12,27 @@ class MaiporarisuDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.menu_open_rounded),
+                padding: const EdgeInsets.all(16),
+              ),
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'まいぽらりす',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 56),
+            ],
+          ),
+          const Divider(height: 1),
           ListTile(
             leading: const Icon(Icons.home_rounded),
             title: const Text(

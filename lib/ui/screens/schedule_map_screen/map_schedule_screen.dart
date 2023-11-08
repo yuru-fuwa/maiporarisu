@@ -32,7 +32,7 @@ class MapScheduleScreen extends StatelessWidget {
         backgroundColor: Color.alphaBlend(
           Theme.of(context).colorScheme.primary.withOpacity(0.08),
           Theme.of(context).colorScheme.background,
-        ).withOpacity(0.9),
+        ).withOpacity(0.85),
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
         title: const Text('まいぽらりす'),

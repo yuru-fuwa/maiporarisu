@@ -14,6 +14,8 @@ class TaskItem extends HookWidget {
   Widget build(BuildContext context) {
     final done = useState(task.check);
     return Card(
+      elevation: 0,
+      color: Colors.transparent,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {
@@ -32,23 +34,13 @@ class TaskItem extends HookWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(task.time),
-                      ],
-                    ),
-                    Text(
-                      task.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                child: Text(
+                  task.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
+              Text(task.time),
             ],
           ),
         ),
