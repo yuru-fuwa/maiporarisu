@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maiporarisu/data/app_constants/app_constants.dart';
-import 'package:maiporarisu/ui/screens/schedule_map_screen/schedule_map_screen.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/map_schedule_screen.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
 
 Future<void> main() async {
@@ -55,7 +55,7 @@ class MaiporarisuApp extends StatelessWidget {
       supportedLocales: const [
         Locale('ja', 'JP'),
       ],
-      home: const ScheduleMapScreen(),
+      home: const MapScheduleScreen(),
     );
   }
 }

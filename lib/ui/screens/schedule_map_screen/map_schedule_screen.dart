@@ -8,14 +8,14 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_d
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
 
-class ScheduleMapScreen extends StatefulWidget {
-  const ScheduleMapScreen({super.key});
+class MapScheduleScreen extends StatefulWidget {
+  const MapScheduleScreen({super.key});
 
   @override
-  State<ScheduleMapScreen> createState() => _ScheduleMapScreenState();
+  State<MapScheduleScreen> createState() => _MapScheduleScreenState();
 }
 
-class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
+class _MapScheduleScreenState extends State<MapScheduleScreen> {
   Location location = Location();
 
   String _locationview = 'no data';
