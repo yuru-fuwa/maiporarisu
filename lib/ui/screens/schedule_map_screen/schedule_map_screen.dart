@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
-import 'package:maiporarisu/data/model/task_model/task_model.dart';
-import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
+import 'package:maiporarisu/data/task/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_drawer.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
+import 'package:maiporarisu/ui/styles/size.dart';
 
-class ScheduleMapScreen extends StatefulHookWidget {
+class ScheduleMapScreen extends StatefulWidget {
   const ScheduleMapScreen({super.key});
 
   @override
@@ -32,6 +32,12 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
   @override
   Widget build(BuildContext context) {
     final userRequest = UserRequest(isMock: true);
+    final screenHeight = MediaQuery.of(context).size.height;
+    final topPadding = MediaQuery.of(context).padding.top;
+
+    final DraggableScrollableController draggableScrollableController =
+        DraggableScrollableController();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -55,22 +61,46 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
             ),
             // その他のGoogleMapの設定
           ),
-          FutureBuilder<List<Task>>(
-            future: userRequest.getAllTasks(),
-            builder: (context, snapshot) {
-              final taskList = snapshot.data ?? <Task>[];
-              return ListView.builder(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + kToolbarHeight,
-                  bottom: MediaQuery.of(context).padding.bottom,
-                ),
-                itemCount: taskList.length,
-                itemBuilder: (context, index) {
-                  final task = taskList[index];
-                  return TaskItem(task: task);
-                },
-              );
-            },
+          SizedBox.expand(
+            child: DraggableScrollableSheet(
+              controller: draggableScrollableController,
+              initialChildSize: MaiporarisuSize.defaultSheetHeight(context),
+              minChildSize: MaiporarisuSize.defaultSheetHeight(context),
+              maxChildSize: 1 -
+                  (topPadding + MaiporarisuSize.minMapHeight(context)) /
+                      screenHeight,
+              snap: true,
+              builder: (context, scrollController) {
+                return Container(
+                  margin: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  decoration: BoxDecoration(
+                    color: Color.alphaBlend(
+                      Theme.of(context).colorScheme.primary.withOpacity(0.08),
+                      Theme.of(context).colorScheme.background,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: FutureBuilder(
+                      future: userRequest.getAllTasks(),
+                      builder: (context, snapshot) {
+                        final taskList = snapshot.data ?? <Task>[];
+                        return MaiporarisuSchedule(
+                          maxHeight: screenHeight -
+                              (topPadding +
+                                  MaiporarisuSize.minMapHeight(context)),
+                          tasks: taskList,
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
           Container(
             height: MediaQuery.of(context).padding.bottom,
