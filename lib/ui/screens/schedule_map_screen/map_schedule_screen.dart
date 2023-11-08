@@ -8,25 +8,15 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_d
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
 
-class MapScheduleScreen extends StatefulWidget {
+class MapScheduleScreen extends StatelessWidget {
   const MapScheduleScreen({super.key});
 
-  @override
-  State<MapScheduleScreen> createState() => _MapScheduleScreenState();
-}
-
-class _MapScheduleScreenState extends State<MapScheduleScreen> {
   Location location = Location();
 
-  String _locationview = 'no data';
-
-  Future<void> getLocation() async {
+  Future<String> getLocation() async {
     BuildContext context = this.context;
     Position pos = await location.determinePosition(context);
-    setState(() {
-      _locationview =
-          'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
-    });
+    return 'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
   }
 
   @override
