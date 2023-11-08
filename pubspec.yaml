@@ -24,7 +24,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   http: ^1.1.0
-  flutter_hooks: ^0.20.2
+  flutter_hooks: ^0.20.3
+  hooks_riverpod: ^2.4.3
+  riverpod_annotation: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +35,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
+  riverpod_generator: ^3.0.0-dev.3
+  custom_lint: ^0.5.3
+  riverpod_lint: ^2.3.0
 
 flutter:
   uses-material-design: true
