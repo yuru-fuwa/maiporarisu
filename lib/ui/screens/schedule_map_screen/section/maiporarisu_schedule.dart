@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maiporarisu/data/task/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
+import 'package:maiporarisu/ui/styles/physics.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
+
 
 class MaiporarisuSchedule extends ConsumerWidget {
   const MaiporarisuSchedule({
@@ -118,6 +120,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
             ),
             height: maxHeight - MaiporarisuSize.sheetHandleHeight,
             child: ListView.builder(
+              physics: const MaiporarisuScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               itemCount: tasks.length,
               itemBuilder: (context, i) {
