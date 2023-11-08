@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/schedule_map_screen.dart';
 import 'package:maiporarisu/ui/styles/color.dart';
@@ -9,7 +10,11 @@ import 'package:maiporarisu/ui/styles/color.dart';
 Future<void> main() async {
   await dotenv.load();
   AppConstants().init();
-  runApp(const MaiporarisuApp());
+  runApp(
+    const ProviderScope(
+      child: MaiporarisuApp(),
+    ),
+  );
 }
 
 class MaiporarisuApp extends StatelessWidget {

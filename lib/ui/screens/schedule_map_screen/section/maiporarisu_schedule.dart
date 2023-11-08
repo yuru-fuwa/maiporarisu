@@ -5,19 +5,38 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.d
 import 'package:maiporarisu/ui/styles/physics.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
 
-
 class MaiporarisuSchedule extends ConsumerWidget {
   const MaiporarisuSchedule({
     super.key,
     required this.maxHeight,
     required this.tasks,
+    required this.draggableScrollableController,
   });
 
   final double maxHeight;
   final List<Task> tasks;
+  final DraggableScrollableController draggableScrollableController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ScrollController();
+    var tempOffset = 0.0;
+    var update = DateTime.now();
+    controller.addListener(() {
+      if (tempOffset == 0 &&
+          controller.offset < 0 &&
+          DateTime.now().difference(update) >
+              const Duration(milliseconds: 10)) {
+        draggableScrollableController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.ease,
+        );
+      }
+      tempOffset = controller.offset;
+      update = DateTime.now();
+    });
+
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: maxHeight),
       child: Stack(
@@ -120,6 +139,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
             ),
             height: maxHeight - MaiporarisuSize.sheetHandleHeight,
             child: ListView.builder(
+              controller: controller,
               physics: const MaiporarisuScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
               itemCount: tasks.length,

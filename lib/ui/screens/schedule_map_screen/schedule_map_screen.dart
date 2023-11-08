@@ -93,6 +93,8 @@ class _ScheduleMapScreenState extends State<ScheduleMapScreen> {
                               (topPadding +
                                   MaiporarisuSize.minMapHeight(context)),
                           tasks: taskList,
+                          draggableScrollableController:
+                              draggableScrollableController,
                         );
                       },
                     ),
