@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
-import 'package:maiporarisu/data/model/task_model/task_model.dart';
+import 'package:maiporarisu/data/task/task_model.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});

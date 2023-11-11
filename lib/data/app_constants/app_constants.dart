@@ -6,9 +6,9 @@ class AppConstants {
   static const String getTask = '/gettask';
   static const String postTask = '/create';
 
-  static get getTasksUrl => baseUrl + getTasks;
-  static get getTaskUrl => baseUrl + getTask;
-  static get postTaskUrl => baseUrl + postTask;
+  static String get getTasksUrl => baseUrl + getTasks;
+  static String get getTaskUrl => baseUrl + getTask;
+  static String get postTaskUrl => baseUrl + postTask;
 
   void init() {
     baseUrl = dotenv.env['BASE_URL'] ?? '';
