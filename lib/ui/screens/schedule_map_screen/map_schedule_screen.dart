@@ -8,17 +8,41 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_d
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
 
-class MapScheduleScreen extends StatelessWidget {
-  const MapScheduleScreen({super.key});
+class MapScheduleScreen extends StatefulWidget {
+  const MapScheduleScreen({Key? key}) : super(key: key);
 
-  Future<String> getLocation(BuildContext context, Location location) async {
-    Position pos = await location.determinePosition(context);
-    return 'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
+  @override
+  _MapScheduleScreenState createState() => _MapScheduleScreenState();
+}
+
+class _MapScheduleScreenState extends State<MapScheduleScreen> {
+  late GoogleMapController mapController;
+  LatLng _currentPosition = const LatLng(35.681236, 139.767125);
+
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
+  Future<void> getLocation() async {
+    Position pos = await Location().determinePosition(context);
+    setState(() {
+      _currentPosition = LatLng(pos.latitude, pos.longitude);
+    });
+
+    await mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: _currentPosition,
+          zoom: 16.0,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final location = Location();
     final userRequest = UserRequest(isMock: true);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
@@ -41,12 +65,21 @@ class MapScheduleScreen extends StatelessWidget {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          const GoogleMap(
+          GoogleMap(
+            onMapCreated: (controller) {
+              mapController = controller;
+            },
             initialCameraPosition: CameraPosition(
-              target: LatLng(35.681236, 139.767125), // デフォルト: 東京駅
+              target: _currentPosition,
               zoom: 16.0,
             ),
-            // その他のGoogleMapの設定
+            markers: {
+              Marker(
+                markerId: const MarkerId('currentLocation'),
+                position: _currentPosition,
+                infoWindow: const InfoWindow(title: '現在地'),
+              ),
+            },
           ),
           SizedBox.expand(
             child: DraggableScrollableSheet(
@@ -104,9 +137,9 @@ class MapScheduleScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          getLocation(context, location);
+          getLocation();
         },
-        child: const Icon(Icons.location_on),
+        child: const Icon(Icons.my_location),
       ),
     );
   }
