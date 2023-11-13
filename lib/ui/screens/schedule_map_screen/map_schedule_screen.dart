@@ -9,7 +9,7 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_s
 import 'package:maiporarisu/ui/styles/size.dart';
 
 class MapScheduleScreen extends StatefulWidget {
-  const MapScheduleScreen({Key? key}) : super(key: key);
+  const MapScheduleScreen({super.key});
 
   @override
   _MapScheduleScreenState createState() => _MapScheduleScreenState();
