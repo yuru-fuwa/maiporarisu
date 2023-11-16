@@ -81,6 +81,31 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
               ),
             },
           ),
+          const SizedBox(height: 100),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            margin: const EdgeInsets.only(top: 100),
+            child: TextFormField(
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide.none,
+                ),
+                hintText: '場所を検索',
+                hintStyle: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                fillColor: Color.alphaBlend(
+                  Theme.of(context).colorScheme.primary.withOpacity(0.08),
+                  Theme.of(context).colorScheme.background,
+                ),
+                filled: true,
+              ),
+            ),
+          ),
           SizedBox.expand(
             child: DraggableScrollableSheet(
               controller: draggableScrollableController,
