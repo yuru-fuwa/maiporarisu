@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_place/google_place.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/task/task_model.dart';
@@ -17,6 +18,7 @@ class MapScheduleScreen extends StatefulWidget {
 
 class _MapScheduleScreenState extends State<MapScheduleScreen> {
   late GoogleMapController mapController;
+  late GooglePlace googlePlace;
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
 
   @override
@@ -26,7 +28,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
   }
 
   Future<void> getLocation() async {
-    Position pos = await Location().determinePosition(context);
+    Position pos = await Geolocator.getCurrentPosition();
     setState(() {
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
