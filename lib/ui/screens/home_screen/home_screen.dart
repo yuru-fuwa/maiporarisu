@@ -23,6 +23,15 @@ class HomeScreen extends HookWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.alphaBlend(
+          Theme.of(context).colorScheme.primary.withOpacity(0.08),
+          Theme.of(context).colorScheme.background,
+        ),
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text('ホーム'),
+      ),
       body: Container(
         padding: const EdgeInsets.all(64),
         child: Column(
