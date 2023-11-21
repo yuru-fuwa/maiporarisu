@@ -42,53 +42,76 @@ class AddTaskScreen extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 8,
+                height: MediaQuery.of(context).size.height / 10,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: state.dateTime,
-                    firstDate: DateTime(DateTime.now().year),
-                    lastDate: DateTime(DateTime.now().year + 1),
-                  ).then((newDateTime) {
-                    if (newDateTime != null) {
-                      state.handleDateTimeState(newDateTime);
-                    }
-                  });
-                },
-                child: Text(
-                  '${state.dateTime.year.toString()}.${state.dateTime.month.toString().padLeft(2, '0')}.${state.dateTime.day.toString().padLeft(2, '0')}',
-                ),
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.add_task_rounded),
+                  Flexible(
+                    child: TextField(
+                      autofocus: true, //自動フォーカス
+                      maxLines: 1,
+                      controller: taskController,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        hintText: 'タスクの名前',
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  showTimePicker(
-                    context: context,
-                    initialTime: state.timeOfDay,
-                  ).then((newTimeOfDay) {
-                    if (newTimeOfDay != null) {
-                      state.handleTimeOfDayState(newTimeOfDay);
-                    }
-                  });
-                },
-                child: Text(
-                  '${state.timeOfDay.hour.toString().padLeft(2, '0')}:${state.timeOfDay.minute.toString().padLeft(2, '0')}',
-                ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 70,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.today_rounded),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: state.dateTime,
+                        firstDate: DateTime(DateTime.now().year),
+                        lastDate: DateTime(DateTime.now().year + 1),
+                      ).then((newDateTime) {
+                        if (newDateTime != null) {
+                          state.handleDateTimeState(newDateTime);
+                        }
+                      });
+                    },
+                    child: Text(
+                      '${state.dateTime.year.toString()}.${state.dateTime.month.toString().padLeft(2, '0')}.${state.dateTime.day.toString().padLeft(2, '0')}',
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 70,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.schedule_rounded),
+                  ElevatedButton(
+                    onPressed: () {
+                      showTimePicker(
+                        context: context,
+                        initialTime: state.timeOfDay,
+                      ).then((newTimeOfDay) {
+                        if (newTimeOfDay != null) {
+                          state.handleTimeOfDayState(newTimeOfDay);
+                        }
+                      });
+                    },
+                    child: Text(
+                      '${state.timeOfDay.hour.toString().padLeft(2, '0')}:${state.timeOfDay.minute.toString().padLeft(2, '0')}',
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 8,
               ),
-              TextField(
-                autofocus: true, //自動フォーカス
-                maxLines: 1,
-                controller: taskController,
-                decoration: const InputDecoration(
-                  filled: true,
-                  hintText: 'Task Name',
-                ),
-              ),
-              TextButton(
+              ElevatedButton.icon(
                 onPressed: () {
                   if (taskValidation()) {
                     userRequest.postTask(
@@ -97,7 +120,8 @@ class AddTaskScreen extends HookWidget {
                     );
                   }
                 },
-                child: const Text('add'),
+                icon: const Icon(Icons.add_rounded),
+                label: const Text('追加'),
               ),
             ],
           ),
