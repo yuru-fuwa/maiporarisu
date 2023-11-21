@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
+import 'package:maiporarisu/ui/screens/home_screen/add_task_screen.dart';
 import 'package:maiporarisu/ui/screens/home_screen/hook/use_home_screen_state.dart';
 
 class HomeScreen extends HookWidget {
@@ -100,7 +101,12 @@ class HomeScreen extends HookWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddTaskScreen()),
+          );
+        },
       ),
     );
   }
