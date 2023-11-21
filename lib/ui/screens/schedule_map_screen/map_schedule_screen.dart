@@ -73,13 +73,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
               target: _currentPosition,
               zoom: 16.0,
             ),
-            markers: {
-              Marker(
-                markerId: const MarkerId('currentLocation'),
-                position: _currentPosition,
-                infoWindow: const InfoWindow(title: '現在地'),
-              ),
-            },
+            myLocationEnabled: true,
           ),
           SizedBox.expand(
             child: DraggableScrollableSheet(
