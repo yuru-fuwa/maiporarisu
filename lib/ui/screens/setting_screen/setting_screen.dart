@@ -18,6 +18,7 @@ class SettingScreen extends StatelessWidget {
     ];
 
     return Scaffold(
+      appBar: AppBar(),
       body: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
