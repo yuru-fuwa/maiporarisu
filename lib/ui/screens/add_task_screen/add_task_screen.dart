@@ -19,13 +19,13 @@ class AddTaskScreen extends HookWidget {
     }
 
     HomeScreenState state = useHomeScreenState(
-      dateTime: DateTime.now(),
+      dateTime: DateTime.now().add(const Duration(days: 1)),
       timeOfDay: TimeOfDay.now(),
     );
 
     return Unfocus(
       child: Scaffold(
-        resizeToAvoidBottomInset: false, //キーボードによって画面サイズを変更させない
+        // resizeToAvoidBottomInset: false, //キーボードによって画面サイズを変更させない
         appBar: AppBar(
           backgroundColor: Color.alphaBlend(
             Theme.of(context).colorScheme.primary.withOpacity(0.08),
@@ -35,9 +35,10 @@ class AddTaskScreen extends HookWidget {
           centerTitle: true,
           title: const Text('タスクを追加'),
         ),
-        body: Container(
-          padding: const EdgeInsets.all(64),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -47,6 +48,7 @@ class AddTaskScreen extends HookWidget {
               Row(
                 children: <Widget>[
                   const Icon(Icons.add_task_rounded),
+                  const SizedBox(width: 16),
                   Flexible(
                     child: TextField(
                       autofocus: true, //自動フォーカス
@@ -66,8 +68,10 @@ class AddTaskScreen extends HookWidget {
               Row(
                 children: [
                   const Icon(Icons.today_rounded),
+                  const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       showDatePicker(
                         context: context,
                         initialDate: state.dateTime,
@@ -91,8 +95,10 @@ class AddTaskScreen extends HookWidget {
               Row(
                 children: [
                   const Icon(Icons.schedule_rounded),
+                  const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       showTimePicker(
                         context: context,
                         initialTime: state.timeOfDay,
@@ -108,23 +114,22 @@ class AddTaskScreen extends HookWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 8,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  if (taskValidation()) {
-                    userRequest.postTask(
-                      '${state.dateTime.year}.${state.dateTime.month}.${state.dateTime.day} ${state.timeOfDay.hour}:${state.timeOfDay.minute}',
-                      taskController.text.trim(),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.add_rounded),
-                label: const Text('追加'),
-              ),
             ],
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          icon: const Icon(Icons.add_rounded),
+          label: const Text('追加'),
+          onPressed: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+            if (taskValidation()) {
+              userRequest.postTask(
+                '${state.dateTime.year}.${state.dateTime.month}.${state.dateTime.day} ${state.timeOfDay.hour}:${state.timeOfDay.minute}',
+                taskController.text.trim(),
+              );
+            }
+          },
         ),
       ),
     );
