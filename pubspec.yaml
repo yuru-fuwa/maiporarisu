@@ -28,6 +28,7 @@ dependencies:
   hooks_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -40,11 +41,25 @@ dev_dependencies:
   custom_lint: ^0.5.3
   riverpod_lint: ^2.3.0
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path_android: "assets/png/icon_android.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#252525"
+  adaptive_icon_foreground: "assets/png/icon_android.png"
+  ios: true
+  image_path_ios: "assets/png/icon_with_bg.png"
+  remove_alpha_ios: true
+  image_path: "assets/png/icon.png"
+
 flutter:
   uses-material-design: true
 
   assets:
     - .env
+    - assets/png/icon_android.png
+    - assets/png/icon_with_bg.png
+    - assets/png/icon.png
 
   # fonts:
   #   - family: Schyler
