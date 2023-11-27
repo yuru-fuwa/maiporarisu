@@ -11,8 +11,7 @@ class UserRequest {
 
   final bool isMock;
 
-  final Uri _getTasksUrl = Uri.parse(AppConstants.getTasksUrl);
-  final Uri _postTaskUrl = Uri.parse(AppConstants.postTaskUrl);
+  final Uri _taskUrl = Uri.parse(AppConstants.taskUrl);
 
   Future<List<Task>> getAllTasks() async {
     if (isMock) {
@@ -20,7 +19,7 @@ class UserRequest {
     }
 
     http.Response response = await http.get(
-      _getTasksUrl,
+      _taskUrl,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -41,7 +40,7 @@ class UserRequest {
 
   Future<void> postTask(String time, String name) async {
     http.Response response = await http.post(
-      _postTaskUrl,
+      _taskUrl,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -52,7 +51,7 @@ class UserRequest {
         },
       ),
     );
-    debugPrint(_postTaskUrl.toString());
+    debugPrint(_taskUrl.toString());
     if (response.statusCode == 200) {
       debugPrint('data post successful');
     } else {
