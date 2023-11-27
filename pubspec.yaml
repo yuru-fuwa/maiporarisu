@@ -28,6 +28,7 @@ dependencies:
   hooks_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,9 @@ flutter:
 
   assets:
     - .env
+    - assets/png/icon_android.png
+    - assets/png/icon_with_bg.png
+    - assets/png/icon.png
 
   # fonts:
   #   - family: Schyler
