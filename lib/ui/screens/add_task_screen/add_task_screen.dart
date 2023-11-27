@@ -83,9 +83,7 @@ class AddTaskScreen extends HookWidget {
                         }
                       });
                     },
-                    child: Text(
-                      '${state.dateTime.year.toString()}.${state.dateTime.month.toString().padLeft(2, '0')}.${state.dateTime.day.toString().padLeft(2, '0')}',
-                    ),
+                    child: Text(state.displayDate),
                   ),
                 ],
               ),
@@ -108,9 +106,7 @@ class AddTaskScreen extends HookWidget {
                         }
                       });
                     },
-                    child: Text(
-                      '${state.timeOfDay.hour.toString().padLeft(2, '0')}:${state.timeOfDay.minute.toString().padLeft(2, '0')}',
-                    ),
+                    child: Text(state.displayTime),
                   ),
                 ],
               ),
