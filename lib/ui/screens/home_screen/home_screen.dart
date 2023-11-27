@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/ui/screens/home_screen/hook/use_home_screen_state.dart';
 
@@ -79,7 +80,15 @@ class HomeScreen extends HookWidget {
               onPressed: () {
                 if (taskValidation()) {
                   userRequest.postTask(
-                    '${state.dateTime.year}.${state.dateTime.month}.${state.dateTime.day} ${state.timeOfDay.hour}:${state.timeOfDay.minute}',
+                    DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
+                      DateTime(
+                        state.dateTime.year,
+                        state.dateTime.month,
+                        state.dateTime.day,
+                        state.timeOfDay.hour,
+                        state.timeOfDay.minute,
+                      ),
+                    ),
                     taskController.text.trim(),
                   );
                 }
