@@ -6,13 +6,14 @@ import 'package:maiporarisu/data/location/location.dart';
 import 'package:maiporarisu/data/task/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_drawer.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_search.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
 
 class MapScheduleScreen extends StatefulWidget {
   const MapScheduleScreen({super.key});
 
   @override
-  _MapScheduleScreenState createState() => _MapScheduleScreenState();
+  State<MapScheduleScreen> createState() => _MapScheduleScreenState();
 }
 
 class _MapScheduleScreenState extends State<MapScheduleScreen> {
@@ -65,15 +66,24 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          GoogleMap(
-            onMapCreated: (controller) {
-              mapController = controller;
-            },
-            initialCameraPosition: CameraPosition(
-              target: _currentPosition,
-              zoom: 16.0,
+          Container(
+            child: GoogleMap(
+              onMapCreated: (controller) {
+                mapController = controller;
+              },
+              initialCameraPosition: CameraPosition(
+                target: _currentPosition,
+                zoom: 16.0,
+              ),
+              myLocationEnabled: true,
             ),
-            myLocationEnabled: true,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(0),
+            child: const MaiporarisuSearch(),
           ),
           SizedBox.expand(
             child: DraggableScrollableSheet(

@@ -11,12 +11,14 @@ class Location {
     permission = await geolocatorPlatform.checkPermission();
     if (permission == LocationPermission.deniedForever ||
         permission == LocationPermission.denied) {
-      await showDialog(
-        context: context,
-        builder: (context) {
-          return locationAlert;
-        },
-      );
+      if (context.mounted) {
+        await showDialog(
+          context: context,
+          builder: (context) {
+            return locationAlert;
+          },
+        );
+      }
       return Future.error('Location permissions are denied');
     }
     return await Geolocator.getCurrentPosition(
