@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maiporarisu/ui/screens/schedule_map_screen/map_schedule_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -7,19 +8,12 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> items = [
       {
-        'title': '設定1',
-        'text': '設定1の説明',
-        'icon': Icons.add_alert,
-      },
-      {
-        'title': '設定2',
-        'text': '設定2の説明',
-        'icon': Icons.people,
-      },
-      {
-        'title': '設定3',
-        'text': '設定3の説明',
-        'icon': Icons.delete_forever,
+        // 'title': 'ペアリング',
+        // 'text': 'QRコードを読み取りタスクを共有します',
+        'title': '設定',
+        'text': 'アプリの設定を変更します',
+        'icon': Icons.settings_rounded,
+        'route': const MapScheduleScreen(),
       },
     ];
 
@@ -31,6 +25,7 @@ class SettingScreen extends StatelessWidget {
             title: items[index]['title'],
             text: items[index]['text'],
             icon: items[index]['icon'],
+            route: items[index]['route'],
           );
         },
       ),
@@ -42,12 +37,14 @@ class SettingListItem extends StatelessWidget {
   final String title;
   final String text;
   final IconData icon;
+  final Widget route;
 
   const SettingListItem({
     super.key,
     required this.title,
     required this.text,
     required this.icon,
+    required this.route,
   });
 
   @override
@@ -69,6 +66,15 @@ class SettingListItem extends StatelessWidget {
             fontSize: 16,
           ),
         ),
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => route,
+            ),
+          );
+        },
       ),
     );
   }
