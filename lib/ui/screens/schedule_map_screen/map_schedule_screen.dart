@@ -19,7 +19,7 @@ class MapScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final location = Location();
-    final userRequest = UserRequest(isMock: true);
+    final userRequest = UserRequest(isMock: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
 
