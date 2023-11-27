@@ -79,10 +79,9 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(0),
-            margin: const EdgeInsets.all(0),
+            margin: const EdgeInsets.only(top: 100),
             child: const MaiporarisuSearch(),
           ),
           SizedBox.expand(

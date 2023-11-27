@@ -44,7 +44,7 @@ class MaiporarisuSearch extends ConsumerWidget {
         filled: true,
       ),
       debounceTime: 400,
-      countries: const ['in', 'fr'],
+      countries: const ['jp'],
       isLatLngRequired: false,
       getPlaceDetailWithLatLng: (prediction) {
         if (kDebugMode) {
