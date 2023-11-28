@@ -47,5 +47,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- Permission options for the `location` group -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>地図機能で現在地を表示するために位置情報を許可してください</string>
+    <key>NSLocationUsageDescription</key>
+    <string>地図機能で現在地を表示するために位置情報を許可してください</string>
 </dict>
 </plist>
