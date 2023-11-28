@@ -66,9 +66,14 @@ class MaiporarisuSearch extends ConsumerWidget {
             children: [
               const Icon(Icons.location_on),
               const SizedBox(
-                width: 7,
+                width: 6,
               ),
-              Expanded(child: Text(prediction.description ?? '')),
+              Expanded(
+                child: Text(
+                  '${prediction.structuredFormatting?.mainText} \n ${prediction.structuredFormatting?.secondaryText}' ??
+                      '',
+                ),
+              ),
             ],
           ),
         );
