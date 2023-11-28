@@ -7,18 +7,26 @@ import 'package:maiporarisu/data/task/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_drawer.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapScheduleScreen extends StatelessWidget {
   const MapScheduleScreen({super.key});
 
-  Future<String> getLocation(BuildContext context, Location location) async {
-    Position pos = await location.determinePosition(context);
-    return 'TimeStamp: ${pos.timestamp}, Latitude: ${pos.latitude}, Longitude: ${pos.longitude}';
+  Future<Position?> getLocation() async {
+    if (!await Permission.location.isGranted) {
+      var status = await Permission.location.request();
+      if (status == PermissionStatus.granted) {
+        return await Location.determinePosition();
+      } else {
+        throw Exception('Location permission not granted');
+      }
+    } else {
+      return await Location.determinePosition();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final location = Location();
     final userRequest = UserRequest(isMock: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
@@ -104,7 +112,7 @@ class MapScheduleScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          getLocation(context, location);
+          getLocation();
         },
         child: const Icon(Icons.location_on),
       ),
