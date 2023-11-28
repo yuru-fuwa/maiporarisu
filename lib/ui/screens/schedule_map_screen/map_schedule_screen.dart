@@ -19,6 +19,7 @@ class MapScheduleScreen extends StatefulWidget {
 class _MapScheduleScreenState extends State<MapScheduleScreen> {
   late GoogleMapController mapController;
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
+  LatLng destinationPosition = const LatLng(0, 0);
 
   @override
   void initState() {
@@ -31,6 +32,8 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
     setState(() {
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
+
+    debugPrint('destinationPosition2: $destinationPosition');
 
     await mapController.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -66,23 +69,36 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Container(
-            child: GoogleMap(
-              onMapCreated: (controller) {
-                mapController = controller;
-              },
-              initialCameraPosition: CameraPosition(
-                target: _currentPosition,
-                zoom: 16.0,
-              ),
-              myLocationEnabled: true,
+          GoogleMap(
+            onMapCreated: (controller) {
+              mapController = controller;
+            },
+            initialCameraPosition: CameraPosition(
+              target: _currentPosition,
+              zoom: 16.0,
             ),
+            myLocationEnabled: true,
+            markers: destinationPosition != const LatLng(0, 0)
+                ? {
+                    Marker(
+                      markerId: const MarkerId('目的地'),
+                      position: destinationPosition,
+                    ),
+                  }
+                : <Marker>{},
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.1,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(top: 100),
-            child: const MaiporarisuSearch(),
+            child: MaiporarisuSearch(
+              destinationPosition: destinationPosition,
+              onDestinationPositionChanged: (position) {
+                setState(() {
+                  destinationPosition = position;
+                });
+              },
+            ),
           ),
           SizedBox.expand(
             child: DraggableScrollableSheet(
