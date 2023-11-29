@@ -140,6 +140,7 @@ class AddTaskScreen extends HookWidget {
                       ),
                       taskController.text.trim(),
                     );
+                    taskController.clear();
                     ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
                   }
                 },
