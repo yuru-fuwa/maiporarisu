@@ -24,13 +24,13 @@ dependencies:
   freezed: ^2.4.3
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
-  http: ^0.13.3
+  http: ^0.13.6
   flutter_hooks: ^0.20.3
   hooks_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   google_places_flutter: ^2.0.6
-  google_maps_directions: ^0.0.4
-  flutter_polyline_points: ^2.0.0
+  google_maps_directions: ^0.0.3+4
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:

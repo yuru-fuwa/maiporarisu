@@ -319,10 +319,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_polyline_points
-      sha256: "0e07862139cb65a88789cd6efbe284c0b6f1fcb5ed5ec87781759c48190d84b9"
+      sha256: "02699e69142f51a248d784b6e3eec524194467fca5f7c4da19699ce2368b6980"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "1.0.0"
   flutter_riverpod:
     dependency: transitive
     description:
@@ -441,10 +441,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_maps_directions
-      sha256: c12a4cf4270b2ff3d6bdec4e7aaa7ddd1ae203282b45e3c8b9d761472c6203c7
+      sha256: "9038944f27cce2fb26b7b1c7e039d2afd1630f12d7d62d22974ca5af349b6a41"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.4"
+    version: "0.0.3+4"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -485,6 +485,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.4+2"
+  google_place:
+    dependency: "direct main"
+    description:
+      name: google_place
+      sha256: "71538407e63f194a5a10d4747c934d26bfc4328c5ee571ffe25ae70a917f2cdc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.7"
   google_places_flutter:
     dependency: "direct main"
     description:
@@ -529,10 +537,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "0.13.6"
   http_multi_server:
     dependency: transitive
     description:
