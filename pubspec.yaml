@@ -28,6 +28,8 @@ dependencies:
   hooks_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   google_places_flutter: ^2.0.6
+  google_maps_directions: ^0.0.4
+  flutter_polyline_points: ^2.0.0
 
 dev_dependencies:
   flutter_test:

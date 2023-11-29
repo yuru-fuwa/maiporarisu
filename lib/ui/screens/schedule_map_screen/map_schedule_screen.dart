@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_directions/google_maps_directions.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maiporarisu/data/controllers/user_request/user_request.dart';
 import 'package:maiporarisu/data/location/location.dart';
@@ -18,13 +22,106 @@ class MapScheduleScreen extends StatefulWidget {
 
 class _MapScheduleScreenState extends State<MapScheduleScreen> {
   late GoogleMapController mapController;
+
+  late List<LatLng> points;
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
-  LatLng destinationPosition = const LatLng(0, 0);
+  LatLng _destinationPosition = const LatLng(0, 0);
+
+  Set<Polyline> polylines = {};
+
+  String getGoogleApiKey() {
+    if (Platform.isAndroid) {
+      return dotenv.env['GOOGLE_API_ANDROID']!;
+    } else if (Platform.isIOS) {
+      return dotenv.env['GOOGLE_API_IOS']!;
+    } else {
+      return dotenv.env['GOOGLE_API_WEB']!;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _setupApiKeys();
+    setState(() {});
     getLocation();
+    updateRoute();
+  }
+
+  Future<void> _setupApiKeys() async {
+    GoogleMapsDirections.init(googleAPIKey: getGoogleApiKey());
+    setState(() {});
+  }
+
+  Directions? _directions;
+  PolylinePoints polylinePoints = PolylinePoints();
+  DirectionRoute get shortestRoute => _directions!.shortestRoute;
+  Future<void> updateRoute() async {
+    List<Polyline> polylineCoordinates = [];
+    try {
+      Directions directions = await getDirections(
+        _currentPosition.latitude,
+        _currentPosition.longitude,
+        _destinationPosition.latitude,
+        _destinationPosition.longitude,
+        language: 'ja',
+      );
+      _directions = directions;
+
+      if (directions.routes.isNotEmpty) {
+        List<PointLatLng> results = polylinePoints.decodePolyline(
+          directions.routes.first.overviewPolyline.points,
+        );
+        if (results.isNotEmpty) {
+          polylineCoordinates.add(
+            Polyline(
+              width: 5,
+              polylineId: const PolylineId("最短経路"),
+              color: Colors.teal,
+              points: results
+                  .map((point) => LatLng(point.latitude, point.longitude))
+                  .toList(),
+            ),
+          );
+        }
+      }
+      points =
+          polylineCoordinates.expand((polyline) => polyline.points).toList();
+      setState(() {
+        polylines = {
+          Polyline(
+            width: 5,
+            geodesic: true,
+            polylineId: const PolylineId('最短経路'),
+            color: Colors.teal,
+            points: points,
+          ),
+        };
+      });
+    } catch (e) {
+      if (e is DirectionsException) {
+        debugPrint('Directions API Error: ${e.message}');
+      } else {
+        debugPrint('Other Error: $e');
+      }
+    }
+  }
+
+  Future<List<LatLng>> _createPolyline() async {
+    List<LatLng> polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      getGoogleApiKey(),
+      PointLatLng(_currentPosition.latitude, _currentPosition.longitude),
+      PointLatLng(
+          _destinationPosition.latitude, _destinationPosition.longitude),
+    );
+
+    if (result.points.isNotEmpty) {
+      polylineCoordinates.add(_currentPosition);
+      polylineCoordinates.add(_destinationPosition);
+    }
+    return polylineCoordinates;
   }
 
   Future<void> getLocation() async {
@@ -32,8 +129,6 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
     setState(() {
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
-
-    debugPrint('destinationPosition2: $destinationPosition');
 
     await mapController.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -78,11 +173,14 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
               zoom: 16.0,
             ),
             myLocationEnabled: true,
-            markers: destinationPosition != const LatLng(0, 0)
+            polylines:
+                _destinationPosition != const LatLng(0, 0) ? polylines : {},
+            markers: _destinationPosition != const LatLng(0, 0)
                 ? {
                     Marker(
-                      markerId: const MarkerId('目的地'),
-                      position: destinationPosition,
+                      markerId: const MarkerId('destinationLocation'),
+                      position: _destinationPosition,
+                      infoWindow: const InfoWindow(title: '目的地'),
                     ),
                   }
                 : <Marker>{},
@@ -92,10 +190,10 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(top: 100),
             child: MaiporarisuSearch(
-              destinationPosition: destinationPosition,
+              destinationPosition: _destinationPosition,
               onDestinationPositionChanged: (position) {
                 setState(() {
-                  destinationPosition = position;
+                  _destinationPosition = position;
                 });
               },
             ),
@@ -157,6 +255,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           getLocation();
+          if (_destinationPosition != const LatLng(0, 0)) updateRoute();
         },
         child: const Icon(Icons.my_location),
       ),
