@@ -98,19 +98,21 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
   }
 
   Future<void> getLocation() async {
-    Position pos = await Location.determinePosition();
-    setState(() {
-      _currentPosition = LatLng(pos.latitude, pos.longitude);
-    });
-
     if (!await Permission.location.isGranted) {
       var status = await Permission.location.request();
       if (status != PermissionStatus.granted) {
-        debugPrint('location permission is not granted');
-        throw Exception('location permission is not granted');
+        throw Exception('Location permission not granted');
       }
     }
 
+    Position pos = await Location.determinePosition();
+    await _updatePosition(pos);
+  }
+
+  Future<void> _updatePosition(Position pos) async {
+    setState(() {
+      _currentPosition = LatLng(pos.latitude, pos.longitude);
+    });
     await mapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
