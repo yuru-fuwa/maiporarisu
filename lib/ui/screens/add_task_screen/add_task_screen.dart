@@ -123,24 +123,26 @@ class AddTaskScreen extends HookWidget {
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add_rounded),
           label: const Text('追加'),
-          onPressed: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-            if (taskValidation()) {
-              userRequest.postTask(
-                DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
-                  DateTime(
-                    state.dateTime.year,
-                    state.dateTime.month,
-                    state.dateTime.day,
-                    state.timeOfDay.hour,
-                    state.timeOfDay.minute,
-                  ),
-                ),
-                taskController.text.trim(),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
-            }
-          },
+          onPressed: taskController.text.trim().isEmpty
+              ? null
+              : () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  if (taskValidation()) {
+                    userRequest.postTask(
+                      DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
+                        DateTime(
+                          state.dateTime.year,
+                          state.dateTime.month,
+                          state.dateTime.day,
+                          state.timeOfDay.hour,
+                          state.timeOfDay.minute,
+                        ),
+                      ),
+                      taskController.text.trim(),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
+                  }
+                },
         ),
       ),
     );
