@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:maiporarisu/ui/screens/location_alert/location_alert.dart';
 
 class Location {
-  Future<Position> determinePosition(BuildContext context) async {
-    final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
-    LocationPermission permission;
-    LocationAlert locationAlert = const LocationAlert();
-
-    permission = await geolocatorPlatform.checkPermission();
-    if (permission == LocationPermission.deniedForever ||
-        permission == LocationPermission.denied) {
-      if (context.mounted) {
-        await showDialog(
-          context: context,
-          builder: (context) {
-            return locationAlert;
-          },
-        );
-      }
-      return Future.error('Location permissions are denied');
+  static Future<Position> determinePosition() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      debugPrint(
+        'Latitude: ${position.latitude}, Longitude: ${position.longitude}',
+      );
+      return position;
+    } catch (e) {
+      debugPrint('Error getting location: $e');
+      return Future.error(e);
     }
-    return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
   }
 }

@@ -12,6 +12,7 @@ import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_d
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_schedule.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/section/maiporarisu_search.dart';
 import 'package:maiporarisu/ui/styles/size.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapScheduleScreen extends StatefulWidget {
   const MapScheduleScreen({super.key});
@@ -97,10 +98,18 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
   }
 
   Future<void> getLocation() async {
-    Position pos = await Location().determinePosition(context);
+    Position pos = await Location.determinePosition();
     setState(() {
       _currentPosition = LatLng(pos.latitude, pos.longitude);
     });
+
+    if (!await Permission.location.isGranted) {
+      var status = await Permission.location.request();
+      if (status != PermissionStatus.granted) {
+        debugPrint('location permission is not granted');
+        throw Exception('location permission is not granted');
+      }
+    }
 
     await mapController.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -114,7 +123,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userRequest = UserRequest(isMock: true);
+    final userRequest = UserRequest(isMock: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
 

@@ -2,7 +2,7 @@ name: maiporarisu
 description: まいぽらりす
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.2+5
 
 environment:
   sdk: ">=3.0.6 <4.0.0"
@@ -16,7 +16,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   geolocator: ^10.0.0
-  permission_handler: ^10.4.3
+  permission_handler: ^11.0.1
   get: ^4.6.5
   flutter_dotenv: ^5.1.0
   google_maps_flutter: ^2.5.0
@@ -31,6 +31,8 @@ dependencies:
   google_places_flutter: ^2.0.6
   google_maps_directions: ^0.0.3+4
   flutter_polyline_points: ^1.0.0
+  intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -43,11 +45,25 @@ dev_dependencies:
   custom_lint: ^0.5.3
   riverpod_lint: ^2.3.0
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path_android: "assets/png/icon_android.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#252525"
+  adaptive_icon_foreground: "assets/png/icon_android.png"
+  ios: true
+  image_path_ios: "assets/png/icon_with_bg.png"
+  remove_alpha_ios: true
+  image_path: "assets/png/icon.png"
+
 flutter:
   uses-material-design: true
 
   assets:
     - .env
+    - assets/png/icon_android.png
+    - assets/png/icon_with_bg.png
+    - assets/png/icon.png
 
   # fonts:
   #   - family: Schyler
