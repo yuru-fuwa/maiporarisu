@@ -24,6 +24,11 @@ class AddTaskScreen extends HookWidget {
       timeOfDay: TimeOfDay.now(),
     );
 
+    const addSnackBar = SnackBar(
+      content: Text('追加できました!!'),
+      duration: Duration(seconds: 2),
+    );
+
     return Unfocus(
       child: Scaffold(
         // resizeToAvoidBottomInset: false, //キーボードによって画面サイズを変更させない
@@ -133,6 +138,7 @@ class AddTaskScreen extends HookWidget {
                 ),
                 taskController.text.trim(),
               );
+              ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
             }
           },
         ),
