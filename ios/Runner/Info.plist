@@ -49,8 +49,10 @@
 	<false/>
 	<!-- Permission options for the `location` group -->
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>地図機能で現在地を表示するために位置情報を許可してください</string>
+    <string>地図機能で現在地をマーカーで表示するために位置情報を使用します。</string>
     <key>NSLocationUsageDescription</key>
-    <string>地図機能で現在地を表示するために位置情報を許可してください</string>
+    <string>地図機能で現在地をマーカーで表示するために位置情報を使用します。</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>地図機能で現在地をマーカーで表示するために位置情報を使用します。</string>
 </dict>
 </plist>
