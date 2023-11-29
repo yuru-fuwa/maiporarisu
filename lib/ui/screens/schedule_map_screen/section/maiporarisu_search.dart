@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_places_flutter/google_places_flutter.dart'
-    as google_place;
+import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MaiporarisuSearch extends ConsumerWidget {
@@ -13,13 +12,13 @@ class MaiporarisuSearch extends ConsumerWidget {
     required this.destinationPosition,
     required this.onDestinationPositionChanged,
   });
-
   LatLng destinationPosition;
   final Function(LatLng) onDestinationPositionChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController controller = TextEditingController();
+
     String getGoogleApiKey() {
       if (Platform.isAndroid) {
         return dotenv.env['GOOGLE_API_ANDROID']!;
@@ -30,7 +29,7 @@ class MaiporarisuSearch extends ConsumerWidget {
       }
     }
 
-    return google_place.GooglePlaceAutoCompleteTextField(
+    return GooglePlaceAutoCompleteTextField(
       textEditingController: controller,
       googleAPIKey: getGoogleApiKey(),
       inputDecoration: InputDecoration(
@@ -82,8 +81,7 @@ class MaiporarisuSearch extends ConsumerWidget {
               ),
               Expanded(
                 child: Text(
-                  '${prediction.structuredFormatting?.mainText} \n ${prediction.structuredFormatting?.secondaryText}' ??
-                      '',
+                  '${prediction.structuredFormatting?.mainText} \n ${prediction.structuredFormatting?.secondaryText}',
                 ),
               ),
             ],

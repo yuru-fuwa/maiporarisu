@@ -22,12 +22,22 @@ class MapScheduleScreen extends StatefulWidget {
 
 class _MapScheduleScreenState extends State<MapScheduleScreen> {
   late GoogleMapController mapController;
-
   late List<LatLng> points;
   LatLng _currentPosition = const LatLng(35.681236, 139.767125);
   LatLng _destinationPosition = const LatLng(0, 0);
-
+  Directions? _directions;
+  PolylinePoints polylinePoints = PolylinePoints();
+  DirectionRoute get shortestRoute => _directions!.shortestRoute;
   Set<Polyline> polylines = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _setupApiKeys();
+    setState(() {});
+    getLocation();
+    setRoute();
+  }
 
   String getGoogleApiKey() {
     if (Platform.isAndroid) {
@@ -39,89 +49,51 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _setupApiKeys();
-    setState(() {});
-    getLocation();
-    updateRoute();
-  }
-
   Future<void> _setupApiKeys() async {
     GoogleMapsDirections.init(googleAPIKey: getGoogleApiKey());
     setState(() {});
   }
 
-  Directions? _directions;
-  PolylinePoints polylinePoints = PolylinePoints();
-  DirectionRoute get shortestRoute => _directions!.shortestRoute;
-  Future<void> updateRoute() async {
+  Future<void> setRoute() async {
     List<Polyline> polylineCoordinates = [];
-    try {
-      Directions directions = await getDirections(
-        _currentPosition.latitude,
-        _currentPosition.longitude,
-        _destinationPosition.latitude,
-        _destinationPosition.longitude,
-        language: 'ja',
-      );
-      _directions = directions;
+    Directions directions = await getDirections(
+      _currentPosition.latitude,
+      _currentPosition.longitude,
+      _destinationPosition.latitude,
+      _destinationPosition.longitude,
+      language: 'ja',
+    );
+    _directions = directions;
 
-      if (directions.routes.isNotEmpty) {
-        List<PointLatLng> results = polylinePoints.decodePolyline(
-          directions.routes.first.overviewPolyline.points,
-        );
-        if (results.isNotEmpty) {
-          polylineCoordinates.add(
-            Polyline(
-              width: 5,
-              polylineId: const PolylineId("最短経路"),
-              color: Colors.teal,
-              points: results
-                  .map((point) => LatLng(point.latitude, point.longitude))
-                  .toList(),
-            ),
-          );
-        }
-      }
-      points =
-          polylineCoordinates.expand((polyline) => polyline.points).toList();
-      setState(() {
-        polylines = {
+    if (directions.routes.isNotEmpty) {
+      List<PointLatLng> results = polylinePoints.decodePolyline(
+        directions.routes.first.overviewPolyline.points,
+      );
+      if (results.isNotEmpty) {
+        polylineCoordinates.add(
           Polyline(
             width: 5,
-            geodesic: true,
             polylineId: const PolylineId('最短経路'),
             color: Colors.teal,
-            points: points,
+            points: results
+                .map((point) => LatLng(point.latitude, point.longitude))
+                .toList(),
           ),
-        };
-      });
-    } catch (e) {
-      if (e is DirectionsException) {
-        debugPrint('Directions API Error: ${e.message}');
-      } else {
-        debugPrint('Other Error: $e');
+        );
       }
     }
-  }
-
-  Future<List<LatLng>> _createPolyline() async {
-    List<LatLng> polylineCoordinates = [];
-    PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      getGoogleApiKey(),
-      PointLatLng(_currentPosition.latitude, _currentPosition.longitude),
-      PointLatLng(
-          _destinationPosition.latitude, _destinationPosition.longitude),
-    );
-
-    if (result.points.isNotEmpty) {
-      polylineCoordinates.add(_currentPosition);
-      polylineCoordinates.add(_destinationPosition);
-    }
-    return polylineCoordinates;
+    points = polylineCoordinates.expand((polyline) => polyline.points).toList();
+    setState(() {
+      polylines = {
+        Polyline(
+          width: 5,
+          geodesic: true,
+          polylineId: const PolylineId('最短経路'),
+          color: Colors.teal,
+          points: points,
+        ),
+      };
+    });
   }
 
   Future<void> getLocation() async {
@@ -255,7 +227,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           getLocation();
-          if (_destinationPosition != const LatLng(0, 0)) updateRoute();
+          if (_destinationPosition != const LatLng(0, 0)) setRoute();
         },
         child: const Icon(Icons.my_location),
       ),
