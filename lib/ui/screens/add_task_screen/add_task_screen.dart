@@ -11,7 +11,8 @@ class AddTaskScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final userRequest = UserRequest();
-    TextEditingController taskController = TextEditingController();
+    final TextEditingController taskController = useTextEditingController();
+
     bool taskValidation() {
       if (taskController.text.trim().isEmpty) {
         return false;
