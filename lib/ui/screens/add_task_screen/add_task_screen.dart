@@ -12,12 +12,24 @@ class AddTaskScreen extends HookWidget {
   Widget build(BuildContext context) {
     final userRequest = UserRequest();
     final TextEditingController taskController = useTextEditingController();
+    final ValueNotifier<bool> isTaskValid = useState(false);
+
+    void handleTaskChanged(String value) {
+      isTaskValid.value = value.trim().isNotEmpty;
+    }
+
+    useEffect(
+      () {
+        taskController.addListener(() {
+          handleTaskChanged(taskController.text);
+        });
+        return taskController.dispose;
+      },
+      [taskController],
+    );
 
     bool taskValidation() {
-      if (taskController.text.trim().isEmpty) {
-        return false;
-      }
-      return true;
+      return isTaskValid.value;
     }
 
     HomeScreenState state = useHomeScreenState(
