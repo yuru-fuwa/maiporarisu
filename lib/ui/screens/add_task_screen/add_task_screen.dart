@@ -136,26 +136,31 @@ class AddTaskScreen extends HookWidget {
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add_rounded),
           label: const Text('追加'),
-          onPressed: taskController.text.trim().isEmpty
+          backgroundColor: isTaskValid.value
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+          foregroundColor: isTaskValid.value
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.38),
+          elevation: isTaskValid.value ? 6 : 0,
+          onPressed: !isTaskValid.value
               ? null
               : () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  if (taskValidation()) {
-                    userRequest.postTask(
-                      DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
-                        DateTime(
-                          state.dateTime.year,
-                          state.dateTime.month,
-                          state.dateTime.day,
-                          state.timeOfDay.hour,
-                          state.timeOfDay.minute,
-                        ),
+                  userRequest.postTask(
+                    DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
+                      DateTime(
+                        state.dateTime.year,
+                        state.dateTime.month,
+                        state.dateTime.day,
+                        state.timeOfDay.hour,
+                        state.timeOfDay.minute,
                       ),
-                      taskController.text.trim(),
-                    );
-                    taskController.clear();
-                    ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
-                  }
+                    ),
+                    taskController.text.trim(),
+                  );
+                  taskController.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
                 },
         ),
       ),
