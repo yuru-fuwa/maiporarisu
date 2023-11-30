@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:maiporarisu/data/app_constants/app_constants.dart';
-import 'package:maiporarisu/data/task/task_model.dart';
+import 'package:maiporarisu/data/model/task.dart';
+import 'package:maiporarisu/data/service/service_constants.dart';
 
 class UserRequest {
   UserRequest({
