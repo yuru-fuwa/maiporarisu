@@ -112,6 +112,16 @@ class AddTaskScreen extends HookWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 70,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.timer_rounded),
+                  const SizedBox(width: 16),
+                  Text(state.displayTimeDifference),
+                ],
+              ),
             ],
           ),
         ),
