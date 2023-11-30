@@ -12,17 +12,34 @@ class AddTaskScreen extends HookWidget {
   Widget build(BuildContext context) {
     final userRequest = UserRequest();
     final TextEditingController taskController = useTextEditingController();
+    final ValueNotifier<bool> isTaskValid = useState(false);
+
+    void handleTaskChanged(String value) {
+      isTaskValid.value = value.trim().isNotEmpty;
+    }
+
+    useEffect(
+      () {
+        taskController.addListener(() {
+          handleTaskChanged(taskController.text);
+        });
+        return taskController.dispose;
+      },
+      [taskController],
+    );
 
     bool taskValidation() {
-      if (taskController.text.trim().isEmpty) {
-        return false;
-      }
-      return true;
+      return isTaskValid.value;
     }
 
     HomeScreenState state = useHomeScreenState(
       dateTime: DateTime.now().add(const Duration(days: 1)),
       timeOfDay: TimeOfDay.now(),
+    );
+
+    const addSnackBar = SnackBar(
+      content: Text('追加できました!!'),
+      duration: Duration(seconds: 2),
     );
 
     return Unfocus(
@@ -119,23 +136,32 @@ class AddTaskScreen extends HookWidget {
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add_rounded),
           label: const Text('追加'),
-          onPressed: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-            if (taskValidation()) {
-              userRequest.postTask(
-                DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
-                  DateTime(
-                    state.dateTime.year,
-                    state.dateTime.month,
-                    state.dateTime.day,
-                    state.timeOfDay.hour,
-                    state.timeOfDay.minute,
-                  ),
-                ),
-                taskController.text.trim(),
-              );
-            }
-          },
+          backgroundColor: isTaskValid.value
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+          foregroundColor: isTaskValid.value
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.38),
+          elevation: isTaskValid.value ? 6 : 0,
+          onPressed: !isTaskValid.value
+              ? null
+              : () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  userRequest.postTask(
+                    DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
+                      DateTime(
+                        state.dateTime.year,
+                        state.dateTime.month,
+                        state.dateTime.day,
+                        state.timeOfDay.hour,
+                        state.timeOfDay.minute,
+                      ),
+                    ),
+                    taskController.text.trim(),
+                  );
+                  taskController.clear();
+                  ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
+                },
         ),
       ),
     );
