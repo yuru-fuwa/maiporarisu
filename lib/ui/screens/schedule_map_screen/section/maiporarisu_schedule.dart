@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:maiporarisu/data/task/task_model.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
 import 'package:maiporarisu/ui/styles/physics.dart';
@@ -22,6 +24,11 @@ class MaiporarisuSchedule extends ConsumerWidget {
     final controller = ScrollController();
     var tempOffset = 0.0;
     var update = DateTime.now();
+    String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    List<Task> todayTasks = tasks.where((task) {
+      return task.time.contains(today);
+    }).toList();
+
     controller.addListener(() {
       if (tempOffset == 0 &&
           controller.offset < 0 &&
@@ -69,7 +76,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
                     children: [
                       const SizedBox(width: 24),
                       Text(
-                        'タスク',
+                        '今日のタスク',
                         style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme
@@ -79,7 +86,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
                       ),
                       const SizedBox(width: 24),
                       Text(
-                        '${tasks.length} 個',
+                        '${todayTasks.length} 個',
                         style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme
@@ -110,7 +117,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
                 thickness: 1,
                 color: Theme.of(context).colorScheme.outline.withOpacity(0.25),
               ),
-              if (tasks.isEmpty)
+              if (todayTasks.isEmpty)
                 Column(
                   children: [
                     const SizedBox(height: 32),
@@ -147,9 +154,9 @@ class MaiporarisuSchedule extends ConsumerWidget {
                 0,
                 20 + MediaQuery.of(context).viewPadding.bottom,
               ),
-              itemCount: tasks.length,
+              itemCount: todayTasks.length,
               itemBuilder: (context, i) {
-                return TaskItem(task: tasks[i]);
+                return TaskItem(task: todayTasks[i]);
               },
             ),
           ),

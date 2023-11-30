@@ -125,7 +125,8 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userRequest = UserRequest(isMock: false);
+    /*TODO isMock: falseにかえる*/
+    final userRequest = UserRequest(isMock: true);
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = MediaQuery.of(context).padding.top;
 
