@@ -140,7 +140,7 @@ class AddTaskScreen extends HookWidget {
                     state.dateTime.day,
                     state.timeOfDay.hour,
                     state.timeOfDay.minute,
-                  ),
+                  ).subtract(const Duration(hours: 9)),
                 ),
                 taskController.text.trim(),
               );
