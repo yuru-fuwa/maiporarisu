@@ -20,13 +20,17 @@ dependencies:
   get: ^4.6.5
   flutter_dotenv: ^5.1.0
   google_maps_flutter: ^2.5.0
+  google_place: ^0.4.7
   freezed: ^2.4.3
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
-  http: ^1.1.0
+  http: ^0.13.6
   flutter_hooks: ^0.20.3
   hooks_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
+  google_places_flutter: ^2.0.6
+  google_maps_directions: ^0.0.3+4
+  flutter_polyline_points: ^1.0.0
   intl: ^0.18.1
   flutter_launcher_icons: ^0.13.1
 
