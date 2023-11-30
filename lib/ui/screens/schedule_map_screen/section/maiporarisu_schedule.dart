@@ -101,8 +101,18 @@ class MaiporarisuSchedule extends HookWidget {
                       ),
                     ],
                   ),
-                  Row(
+                  Stack(
+                    alignment: Alignment.center,
                     children: [
+                      Column(
+                        children: [
+                          const SizedBox(height: 4),
+                          Text(
+                            '${state.dateTime.day}',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
                       IconButton(
                         onPressed: () {
                           FocusManager.instance.primaryFocus?.unfocus();
@@ -117,14 +127,13 @@ class MaiporarisuSchedule extends HookWidget {
                             }
                           });
                         },
-                        icon: const Icon(Icons.more_vert_rounded),
+                        icon: const Icon(Icons.calendar_today),
                         disabledColor: Theme.of(context)
                             .colorScheme
                             .onBackground
                             .withOpacity(0.3),
                         padding: const EdgeInsets.all(16.0),
                       ),
-                      const SizedBox(width: 4),
                     ],
                   ),
                 ],
