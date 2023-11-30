@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'task_model.freezed.dart';
-part 'task_model.g.dart';
+part 'task.freezed.dart';
+part 'task.g.dart';
 
 @freezed
 class Task with _$Task {

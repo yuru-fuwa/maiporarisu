@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:maiporarisu/data/task/task_model.dart';
+import 'package:maiporarisu/data/model/task.dart';
 
 class TaskItem extends HookWidget {
   final Task task;

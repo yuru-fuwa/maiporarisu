@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:maiporarisu/data/task/task_model.dart';
+import 'package:maiporarisu/data/model/task.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/hook/use_schedule_map_screen_state.dart';
 import 'package:maiporarisu/ui/styles/physics.dart';
