@@ -33,6 +33,26 @@ class HomeScreenState with _$HomeScreenState {
       ),
     );
   }
+
+  String get displayTimeDifference {
+    var now = DateTime.now();
+    var difference = dateTime
+        .add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute))
+        .difference(now);
+
+    if (difference.inDays >= 7) {
+      var weeks = difference.inDays ~/ 7;
+      return '$weeks週間後';
+    } else if (difference.inDays > 0) {
+      return '${difference.inDays}日後';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours}時間後';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes}分後';
+    } else {
+      return '今すぐ';
+    }
+  }
 }
 
 HomeScreenState useHomeScreenState({
