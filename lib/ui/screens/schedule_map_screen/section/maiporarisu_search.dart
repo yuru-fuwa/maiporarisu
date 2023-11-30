@@ -2,22 +2,23 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MaiporarisuSearch extends ConsumerWidget {
-  MaiporarisuSearch({
+class MaiporarisuSearch extends HookWidget {
+  const MaiporarisuSearch({
     super.key,
     required this.destinationPosition,
     required this.onDestinationPositionChanged,
   });
-  LatLng destinationPosition;
+
+  final LatLng destinationPosition;
   final Function(LatLng) onDestinationPositionChanged;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController controller = TextEditingController();
+  Widget build(BuildContext context) {
+    final TextEditingController controller = useTextEditingController();
 
     String getGoogleApiKey() {
       if (Platform.isAndroid) {
@@ -53,14 +54,14 @@ class MaiporarisuSearch extends ConsumerWidget {
       countries: const ['jp'],
       isLatLngRequired: true,
       getPlaceDetailWithLatLng: (prediction) {
-        destinationPosition = LatLng(
+        final newDestination = LatLng(
           double.tryParse(prediction.lat!) ?? 0,
           double.tryParse(prediction.lng!) ?? 0,
         );
         if (kDebugMode) {
-          debugPrint('destinationPosition: $destinationPosition');
+          debugPrint('destinationPosition: $newDestination');
         }
-        onDestinationPositionChanged(destinationPosition);
+        onDestinationPositionChanged(newDestination);
       },
       itemClick: (prediction) {
         controller.text = prediction.description ?? '';
