@@ -1,8 +1,17 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:maiporarisu/data/app_constants/app_constants.dart';
 import 'package:maiporarisu/data/task/task_model.dart';
+
+class AppConstants {
+  static String taskUrl = '';
+
+  void init() {
+    taskUrl = dotenv.env['BASE_URL'] ?? '';
+  }
+}
 
 class UserRequest {
   UserRequest({
