@@ -24,6 +24,7 @@ class MaiporarisuSchedule extends ConsumerWidget {
     final controller = ScrollController();
     var tempOffset = 0.0;
     var update = DateTime.now();
+    tasks.sort((a, b) => a.time.compareTo(b.time));
     String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
     List<Task> todayTasks = tasks.where((task) {
       return task.time.contains(today);
