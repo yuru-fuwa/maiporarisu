@@ -36,7 +36,7 @@ class HomeScreenState with _$HomeScreenState {
   }
 
   String get displayTimeDifference {
-    return MaiporarisuUtil.getTimeDifference(dateTime);
+    return MaiporarisuUtil.getTimeDifference(dateTime, timeOfDay: timeOfDay);
   }
 }
 

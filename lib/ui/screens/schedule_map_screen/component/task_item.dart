@@ -42,7 +42,7 @@ class TaskItem extends HookWidget {
                 ),
               ),
               Text(
-                MaiporarisuUtil.getTimeDifference(task.taskDateTime),
+                MaiporarisuUtil.getTimeDisplay(task.taskDateTime),
               ),
             ],
           ),

@@ -1,11 +1,17 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 class MaiporarisuUtil {
-  static String getTimeDifference(DateTime dateTime) {
+  static String getTimeDifference(
+    DateTime dateTime, {
+    TimeOfDay timeOfDay = const TimeOfDay(hour: 0, minute: 0),
+  }) {
     var now = DateTime.now();
     var difference = dateTime
-        .add(Duration(hours: dateTime.hour, minutes: dateTime.minute))
+        .add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute))
         .difference(now);
     var isNegative = difference.isNegative;
-
+    
     if (difference.inDays.abs() >= 365) {
       var years = difference.inDays.abs() ~/ 365;
       return isNegative ? '$years年前' : '$years年後';
@@ -29,6 +35,17 @@ class MaiporarisuUtil {
           : '${difference.inMinutes}分後';
     } else {
       return '現在';
+    }
+  }
+
+  static String getTimeDisplay(DateTime dateTime) {
+    var now = DateTime.now();
+    if (dateTime.year == now.year &&
+        dateTime.month == now.month &&
+        dateTime.day == now.day) {
+      return getTimeDifference(dateTime);
+    } else {
+      return DateFormat('H:mm', 'ja_JP').format(dateTime);
     }
   }
 }
