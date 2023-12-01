@@ -35,8 +35,18 @@ class HomeScreenState with _$HomeScreenState {
     );
   }
 
+  DateTime get _dateTimeWithTimeOfDay {
+    return DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+  }
+
   String get displayTimeDifference {
-    return MaiporarisuUtil.getTimeDifference(dateTime, timeOfDay: timeOfDay);
+    return MaiporarisuUtil.getTimeDifference(_dateTimeWithTimeOfDay);
   }
 }
 

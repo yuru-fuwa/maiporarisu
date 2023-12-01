@@ -18,7 +18,7 @@ class Task with _$Task {
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
-  DateTime get taskDateTime =>
+  DateTime get dateTime =>
       DateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(time).toLocal();
 
   static Task get mockTask => const Task(
