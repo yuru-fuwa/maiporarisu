@@ -31,8 +31,8 @@ void ShowEditFormModal(
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  userRequest.updateTask(
-                      task.id as int, timeController.text, nameController.text);
+                  userRequest.updateTask(task.id, timeController.text,
+                      nameController.text, task.check);
                   Navigator.pop(context);
                 },
                 child: const Text('変更する'),

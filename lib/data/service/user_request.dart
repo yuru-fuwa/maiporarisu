@@ -60,25 +60,9 @@ class UserRequest {
     }
   }
 
-  Future<void> deleteTask(int taskId) async {
-    Uri deleteUrl = Uri.parse('${_taskUrl.toString()}/$taskId');
-
-    http.Response response = await http.delete(
-      deleteUrl,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      debugPrint('Task deleted successfully');
-    } else {
-      debugPrint('Task deletion failed');
-    }
-  }
-
-  Future<void> updateTask(int taskId, String time, String name) async {
-    Uri updateUrl = Uri.parse('${_taskUrl.toString()}/$taskId');
+  Future<void> updateTask(String id, String time, String name, bool check) async {
+    Uri updateUrl =
+        _taskUrl.replace(path: '${_taskUrl.path}/$id');
 
     http.Response response = await http.put(
       updateUrl,
@@ -89,14 +73,37 @@ class UserRequest {
         {
           'time': time,
           'name': name,
+          'check': check,
         },
       ),
     );
 
+    debugPrint(updateUrl.toString());
+
     if (response.statusCode == 200) {
-      debugPrint('Task updated successfully');
+      debugPrint('data update successful');
     } else {
-      debugPrint('Task update failed');
+      debugPrint('data update failed');
+    }
+  }
+
+  Future<void> deleteTask(String id) async {
+    Uri deleteUrl =
+        _taskUrl.replace(path: '${_taskUrl.path}/$id');
+
+    http.Response response = await http.delete(
+      deleteUrl,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    debugPrint(deleteUrl.toString());
+
+    if (response.statusCode == 200) {
+      debugPrint('data deletion successful');
+    } else {
+      debugPrint('data deletion failed');
     }
   }
 }

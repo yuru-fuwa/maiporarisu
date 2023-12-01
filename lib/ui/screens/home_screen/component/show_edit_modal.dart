@@ -24,7 +24,7 @@ void ShowEditModal(BuildContext context, UserRequest userRequest, Task task) {
             leading: const Icon(Icons.delete),
             title: const Text('削除'),
             onTap: () {
-              userRequest.deleteTask(task.id as int);
+              userRequest.deleteTask(task.id);
               Navigator.pop(context);
             },
           ),
