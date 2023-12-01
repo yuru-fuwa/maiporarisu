@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:maiporarisu/data/model/task.dart';
 import 'package:maiporarisu/data/service/user_request.dart';
 import 'package:maiporarisu/ui/screens/add_task_screen/add_task_screen.dart';
+import 'package:maiporarisu/ui/screens/home_screen/component/show_edit_modal.dart';
 import 'package:maiporarisu/ui/screens/schedule_map_screen/component/task_item.dart';
 
 class HomeScreen extends HookWidget {
@@ -53,11 +54,19 @@ class HomeScreen extends HookWidget {
               return Card(
                 child: Column(
                   children: [
-                    TaskItem(task: taskList[i]),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.edit),
+                    Container(
+                      height: 24,
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        onPressed: () {
+                          ShowEditModal(context, taskList[i]);
+                        },
+                        icon: const Icon(Icons.more_horiz),
+                        iconSize: 24,
+                      ),
                     ),
+                    TaskItem(task: taskList[i]),
+                    const SizedBox(height: 18),
                   ],
                 ),
               );
