@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:maiporarisu/maiporarisu_util.dart';
 
 part 'use_home_screen_state.freezed.dart';
 
@@ -18,7 +19,7 @@ class HomeScreenState with _$HomeScreenState {
 
   String get displayDate {
     var formatter = DateFormat('yyyy年M月d日 (E)', 'ja_JP');
-    return formatter.format(dateTime);
+        return formatter.format(dateTime);
   }
 
   String get displayTime {
@@ -32,6 +33,20 @@ class HomeScreenState with _$HomeScreenState {
         timeOfDay.minute,
       ),
     );
+  }
+
+  DateTime get _dateTimeWithTimeOfDay {
+    return DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+  }
+
+  String get displayTimeDifference {
+    return MaiporarisuUtil.getTimeDifference(_dateTimeWithTimeOfDay);
   }
 }
 

@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'task.freezed.dart';
 part 'task.g.dart';
 
 @freezed
 class Task with _$Task {
+  const Task._();
+
   const factory Task({
     required String id,
     required String time,
@@ -14,6 +17,9 @@ class Task with _$Task {
   }) = _Task;
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
+
+  DateTime get dateTime =>
+      DateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(time).toLocal();
 
   static Task get mockTask => const Task(
         id: '1',

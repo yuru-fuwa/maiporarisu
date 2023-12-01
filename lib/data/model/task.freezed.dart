@@ -125,12 +125,13 @@ class __$$TaskImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
+class _$TaskImpl extends _Task with DiagnosticableTreeMixin {
   const _$TaskImpl(
       {required this.id,
       required this.time,
       required this.name,
-      required this.check});
+      required this.check})
+      : super._();
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskImplFromJson(json);
@@ -189,12 +190,13 @@ class _$TaskImpl with DiagnosticableTreeMixin implements _Task {
   }
 }
 
-abstract class _Task implements Task {
+abstract class _Task extends Task {
   const factory _Task(
       {required final String id,
       required final String time,
       required final String name,
       required final bool check}) = _$TaskImpl;
+  const _Task._() : super._();
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
 

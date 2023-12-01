@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:maiporarisu/data/model/task.dart';
+import 'package:maiporarisu/maiporarisu_util.dart';
 
 class TaskItem extends HookWidget {
   final Task task;
@@ -40,7 +41,9 @@ class TaskItem extends HookWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text(task.time),
+              Text(
+                MaiporarisuUtil.getTimeDisplay(task.dateTime),
+              ),
             ],
           ),
         ),

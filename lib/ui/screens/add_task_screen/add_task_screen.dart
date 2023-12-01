@@ -129,6 +129,16 @@ class AddTaskScreen extends HookWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 70,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.timer_rounded),
+                  const SizedBox(width: 16),
+                  Text(state.displayTimeDifference),
+                ],
+              ),
             ],
           ),
         ),
@@ -147,18 +157,20 @@ class AddTaskScreen extends HookWidget {
               ? null
               : () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  userRequest.postTask(
-                    DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
-                      DateTime(
-                        state.dateTime.year,
-                        state.dateTime.month,
-                        state.dateTime.day,
-                        state.timeOfDay.hour,
-                        state.timeOfDay.minute,
+                  if (taskValidation()) {
+                    userRequest.postTask(
+                      DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(
+                        DateTime(
+                          state.dateTime.year,
+                          state.dateTime.month,
+                          state.dateTime.day,
+                          state.timeOfDay.hour,
+                          state.timeOfDay.minute,
+                        ).subtract(const Duration(hours: 9)),
                       ),
-                    ),
-                    taskController.text.trim(),
-                  );
+                      taskController.text.trim(),
+                    );
+                  }
                   taskController.clear();
                   ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
                 },
