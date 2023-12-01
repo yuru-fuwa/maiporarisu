@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maiporarisu/ui/screens/qr_camera_screen/qr_camera_screen.dart';
 import 'package:maiporarisu/ui/screens/setting_screen/component/setting_column.dart';
 import 'package:maiporarisu/ui/screens/setting_screen/component/setting_item.dart';
 import 'package:maiporarisu/ui/screens/setting_screen/component/setting_title.dart';
@@ -27,19 +28,22 @@ class SettingScreen extends StatelessWidget {
                   children: [
                     const SettingItem(
                       navigate: null,
-                      icon: Icons.email_rounded,
-                      label: 'メールアドレス',
-                      value: 'example@example.com',
+                      icon: Icons.onetwothree_rounded,
+                      label: 'ユーザーID',
+                      value: 'yurufuwa',
                     ),
                     SettingItem(
-                      navigate: () {},
-                      icon: Icons.lock_reset_rounded,
-                      label: 'パスワード変更',
-                    ),
-                    SettingItem(
-                      navigate: () async {},
-                      icon: Icons.logout_rounded,
-                      label: 'ログアウト',
+                      navigate: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const QrCameraScreen(
+                              id: 'yurufuwa',
+                            ),
+                          ),
+                        );
+                      },
+                      icon: Icons.handshake_rounded,
+                      label: 'ユーザー連携',
                     ),
                   ],
                 ),
