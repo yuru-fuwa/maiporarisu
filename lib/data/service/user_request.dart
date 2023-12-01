@@ -59,4 +59,51 @@ class UserRequest {
       debugPrint('data post failed');
     }
   }
+
+  Future<void> updateTask(String id, String time, String name, bool check) async {
+    Uri updateUrl =
+        _taskUrl.replace(path: '${_taskUrl.path}/$id');
+
+    http.Response response = await http.put(
+      updateUrl,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        {
+          'time': time,
+          'name': name,
+          'check': check,
+        },
+      ),
+    );
+
+    debugPrint(updateUrl.toString());
+
+    if (response.statusCode == 200) {
+      debugPrint('data update successful');
+    } else {
+      debugPrint('data update failed');
+    }
+  }
+
+  Future<void> deleteTask(String id) async {
+    Uri deleteUrl =
+        _taskUrl.replace(path: '${_taskUrl.path}/$id');
+
+    http.Response response = await http.delete(
+      deleteUrl,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    debugPrint(deleteUrl.toString());
+
+    if (response.statusCode == 200) {
+      debugPrint('data deletion successful');
+    } else {
+      debugPrint('data deletion failed');
+    }
+  }
 }
