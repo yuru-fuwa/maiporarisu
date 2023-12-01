@@ -124,6 +124,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
     );
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final userRequest = UserRequest(isMock: false);
@@ -134,6 +135,7 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
         DraggableScrollableController();
 
     return Scaffold(
+      key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Color.alphaBlend(
@@ -143,6 +145,17 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
         title: const Text('まいぽらりす'),
+        leading: GestureDetector(
+          onLongPress: () {
+            setState(() {
+              _scaffoldKey.currentState!.openDrawer();
+            });
+          },
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu_rounded),
+          ),
+        ),
       ),
       drawer: const MaiporarisuDrawer(),
       body: Stack(
