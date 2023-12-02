@@ -19,8 +19,11 @@ class UserRequest {
       return Task.mockTasks;
     }
 
+    Uri getTaskUrl =
+        Uri.parse('${AppConstants.taskUrl}/${AppConstants.testUser}');
+
     http.Response response = await http.get(
-      _taskUrl,
+      getTaskUrl,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -47,6 +50,7 @@ class UserRequest {
       },
       body: jsonEncode(
         {
+          'user_id': AppConstants.testUser,
           'time': time,
           'name': name,
         },
@@ -60,9 +64,14 @@ class UserRequest {
     }
   }
 
-  Future<void> updateTask(String id, String time, String name, bool check) async {
-    Uri updateUrl =
-        _taskUrl.replace(path: '${_taskUrl.path}/$id');
+  Future<void> updateTask(
+    String id,
+    String user_id,
+    String time,
+    String name,
+    bool check,
+  ) async {
+    Uri updateUrl = _taskUrl.replace(path: '${_taskUrl.path}/$id');
 
     http.Response response = await http.put(
       updateUrl,
@@ -88,8 +97,7 @@ class UserRequest {
   }
 
   Future<void> deleteTask(String id) async {
-    Uri deleteUrl =
-        _taskUrl.replace(path: '${_taskUrl.path}/$id');
+    Uri deleteUrl = _taskUrl.replace(path: '${_taskUrl.path}/$id');
 
     http.Response response = await http.delete(
       deleteUrl,
