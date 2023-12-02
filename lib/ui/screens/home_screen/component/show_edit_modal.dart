@@ -3,7 +3,7 @@ import 'package:maiporarisu/data/model/task.dart';
 import 'package:maiporarisu/data/service/user_request.dart';
 import 'package:maiporarisu/ui/screens/home_screen/component/show_edit_form_modal.dart';
 
-void ShowEditModal(BuildContext context, UserRequest userRequest, Task task) {
+void showEditModal(BuildContext context, UserRequest userRequest, Task task) {
   showModalBottomSheet(
     context: context,
     builder: (context) {
@@ -16,7 +16,7 @@ void ShowEditModal(BuildContext context, UserRequest userRequest, Task task) {
             title: const Text('編集'),
             onTap: () {
               Navigator.pop(context);
-              ShowEditFormModal(context, userRequest, task);
+              showEditFormModal(context, userRequest, task);
             },
           ),
           const SizedBox(height: 32),

@@ -59,7 +59,7 @@ class HomeScreen extends HookWidget {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                         onPressed: () {
-                          ShowEditModal(context, userRequest, taskList[i]);
+                          showEditModal(context, userRequest, taskList[i]);
                         },
                         icon: const Icon(Icons.more_horiz),
                         iconSize: 24,

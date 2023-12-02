@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maiporarisu/data/model/task.dart';
 import 'package:maiporarisu/data/service/user_request.dart';
 
-void ShowEditFormModal(
+void showEditFormModal(
   BuildContext context,
   UserRequest userRequest,
   Task task,
@@ -31,8 +31,12 @@ void ShowEditFormModal(
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  userRequest.updateTask(task.id, timeController.text,
-                      nameController.text, task.check);
+                  userRequest.updateTask(
+                    task.id,
+                    timeController.text,
+                    nameController.text,
+                    task.check,
+                  );
                   Navigator.pop(context);
                 },
                 child: const Text('変更する'),
