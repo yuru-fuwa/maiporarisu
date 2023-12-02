@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -63,10 +64,10 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       _currentPosition.longitude,
       _destinationPosition.latitude,
       _destinationPosition.longitude,
+      mode: TravelMode.transit.toString(),
       language: 'ja',
     );
     _directions = directions;
-
     if (directions.routes.isNotEmpty) {
       List<PointLatLng> results = polylinePoints.decodePolyline(
         directions.routes.first.overviewPolyline.points,
@@ -96,6 +97,22 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
         ),
       };
     });
+  }
+
+  Future<void> destinationAnimation() async {
+    await mapController.animateCamera(
+      CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          southwest:
+              LatLng(_currentPosition.latitude, _currentPosition.longitude),
+          northeast: LatLng(
+            _destinationPosition.latitude,
+            _destinationPosition.longitude,
+          ),
+        ),
+        100.0,
+      ),
+    );
   }
 
   Future<void> getLocation() async {
@@ -191,6 +208,8 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
               onDestinationPositionChanged: (position) {
                 setState(() {
                   _destinationPosition = position;
+                  setRoute();
+                  destinationAnimation();
                 });
               },
             ),
@@ -252,7 +271,6 @@ class _MapScheduleScreenState extends State<MapScheduleScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           getLocation();
-          if (_destinationPosition != const LatLng(0, 0)) setRoute();
         },
         child: const Icon(Icons.my_location),
       ),
