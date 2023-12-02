@@ -11,7 +11,7 @@ class HomeScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userRequest = UserRequest(isMock: true);
+    final userRequest = UserRequest(isMock: false);
 
     return FutureBuilder(
       future: userRequest.getAllTasks(),

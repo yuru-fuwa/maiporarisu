@@ -71,7 +71,7 @@ class UserRequest {
     String name,
     bool check,
   ) async {
-    Uri updateUrl = _taskUrl.replace(path: '${_taskUrl.path}/$id');
+    Uri updateUrl = Uri.parse('${AppConstants.taskUrl}/$id');
 
     http.Response response = await http.put(
       updateUrl,
@@ -80,6 +80,7 @@ class UserRequest {
       },
       body: jsonEncode(
         {
+          'user_id': userId,
           'time': time,
           'name': name,
           'check': check,
