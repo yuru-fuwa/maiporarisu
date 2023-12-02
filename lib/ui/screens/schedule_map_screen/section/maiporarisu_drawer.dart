@@ -34,9 +34,9 @@ class MaiporarisuDrawer extends StatelessWidget {
           ),
           const Divider(height: 1),
           ListTile(
-            leading: const Icon(Icons.home_rounded),
+            leading: const Icon(Icons.list_alt),
             title: const Text(
-              'ホーム',
+              'タスク一覧',
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
