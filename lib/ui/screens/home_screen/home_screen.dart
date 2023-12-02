@@ -55,6 +55,7 @@ class HomeScreen extends HookWidget {
                 child: Column(
                   children: [
                     Container(
+                      height: 24,
                       alignment: Alignment.centerRight,
                       child: IconButton(
                         onPressed: () {
