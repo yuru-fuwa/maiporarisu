@@ -5,6 +5,6 @@ class AppConstants {
   static String testUser = 'test';
 
   void init() {
-    taskUrl = dotenv.env['BASE_URL'] ?? '';
+    taskUrl = dotenv.env['TASK_URL'] ?? '';
   }
 }
